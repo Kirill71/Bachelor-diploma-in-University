@@ -1,5 +1,5 @@
-/* 
-date: 2013 - 2018, 
+/*
+date: 2013 - 2018,
 author : Sergei Zaychenko, NURE, Kharkiv, Ukraine, Aldec-KTC (c)
 
 purpose : Simple Unit-testing lib.
@@ -8,8 +8,8 @@ refactored by Kirill Zharenkov, Aldec-KTC(c)
 
 */
 
-#ifndef _TESTSLIB_HPP_
-#define _TESTSLIB_HPP_
+#ifndef TESTSLIB_HPP_
+#define TESTSLIB_HPP_
 
 /*-----------------------------------------------------------------*/
 
@@ -25,7 +25,7 @@ refactored by Kirill Zharenkov, Aldec-KTC(c)
 
 /*-----------------------------------------------------------------*/
 
-using TestProcedure =  std::function< void() >; 
+using TestProcedure =  std::function< void() >;
 
 /*-----------------------------------------------------------------*/
 
@@ -73,7 +73,7 @@ private:
 
 /*-----------------------------------------------------------------*/
 
-	using TestProcedureres = 
+	using TestProcedureres =
 		std::vector< std::pair< std::string, TestProcedure > >;
 
 /*-----------------------------------------------------------------*/
@@ -116,8 +116,8 @@ public:
 #define ASSERT_THROWS( TESTED_CODE, EXPECTED_MESSAGE )		\
 	try                                                     \
 	{                                                       \
-        { TESTED_CODE; }                                    \
-        assert( ! "Exception must have been thrown" );      \
+	{ TESTED_CODE; }                                    \
+	assert( ! "Exception must have been thrown" );      \
 	}                                                       \
 	catch ( const std::exception & e )                      \
 	{                                                       \

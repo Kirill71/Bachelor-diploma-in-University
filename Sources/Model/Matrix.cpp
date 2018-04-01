@@ -1,9 +1,9 @@
-#include "Headers\Model\Matrix.hpp"
+#include "Headers/Model/Matrix.hpp"
 
 /*---------------------------------------------------------------------------*/
 
 auto
-Matrix::makeMatrixImpl( unsigned _rowSize ) const noexcept
+Matrix::makeMatrixImpl( size_t _rowSize ) const noexcept
 {
 	return std::make_unique< Matrix::MatrixImpl >( _rowSize );
 
@@ -11,7 +11,7 @@ Matrix::makeMatrixImpl( unsigned _rowSize ) const noexcept
 
 /*---------------------------------------------------------------------------*/
 
-Matrix::Matrix( unsigned _rowSize, unsigned _collSize )
+Matrix::Matrix( size_t _rowSize, size_t _collSize )
 	:	m_rowSize( _rowSize )
 	,	m_collSize( _collSize )
 	,	m_matrix( makeMatrixImpl( m_rowSize ) )
@@ -31,10 +31,10 @@ Matrix::Matrix( unsigned _rowSize, unsigned _collSize )
 /*---------------------------------------------------------------------------*/
 
 Matrix::Matrix( const Matrix& _matrix )
-	:	Matrix( 
+	:	Matrix(
 				_matrix.rowSize()
-			,	_matrix.collSize() 
-		)	
+			,	_matrix.collSize()
+		)
 {
 	std::copy(
 			_matrix.cbegin()
@@ -46,13 +46,13 @@ Matrix::Matrix( const Matrix& _matrix )
 /*---------------------------------------------------------------------------*/
 
 Matrix::Matrix(
-		unsigned _rowSize
-	,	unsigned _collSize
+		size_t _rowSize
+	,	size_t _collSize
 	,	std::initializer_list< MatrixDataType > _list
 ) : Matrix( _rowSize, _collSize )
 {
 	if ( collSize() * rowSize() < _list.size() )
-		throw std::logic_error(" bad size of elements"); // add custom exception 
+		throw std::logic_error(" bad size of elements"); // add custom exception
 
 	auto it = _list.begin();
 
@@ -100,8 +100,8 @@ Matrix::insertRow( const Matrix::Row& _row )
 	m_matrix->push_back( _row );
 
 	++m_rowSize;
-	
-} // Matrix::insertRow 
+
+} // Matrix::insertRow
 
 /*---------------------------------------------------------------------------*/
 
@@ -122,19 +122,19 @@ Matrix::insertColumn( const Matrix::Column& _column )
 /*---------------------------------------------------------------------------*/
 
 const Matrix::Row&
-Matrix::operator[] ( unsigned _index ) const
+Matrix::operator[] ( size_t _index ) const
 {
-	if ( _index < 0 || _index > m_matrix->size() || _index > ( *m_matrix )[0].size() ) 
-		throw std::out_of_range("Out of range exception"); 
+    if ( _index > m_matrix->size() || _index > ( *m_matrix )[0].size() )
+                throw std::out_of_range("Out of range exception");
 
-	return (*m_matrix )[ _index ];
+        return (*m_matrix )[ _index ];
 
 } // Matrix::operator[]
 
 /*---------------------------------------------------------------------------*/
 
 Matrix::Row&
-Matrix::operator[] ( unsigned _index )
+Matrix::operator[] ( size_t _index )
 {
 	return const_cast< Matrix::Row& >(
 		static_cast< const Matrix& >( *this )
@@ -164,12 +164,12 @@ operator+ ( const Matrix::Row& _lhs, const Matrix::Row & _rhs )
 		,	_lhs.end()
 		,	_rhs.begin()
 		,	std::back_inserter( result )
-		,	std::plus< Matrix::MatrixDataType >() 
+		,	std::plus< Matrix::MatrixDataType >()
 	);
 
 	return result;
 
-} // operator+ 
+} // operator+
 
 /*---------------------------------------------------------------------------*/
 

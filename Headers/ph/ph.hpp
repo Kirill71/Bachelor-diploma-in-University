@@ -1,18 +1,18 @@
 /*
-	2018
+    2018
 
-	Author : Kirill Zharenkov, Aldec-KTC Team.
+    Author : Kirill Zharenkov, Aldec-KTC Team.
 
-	Date: 01.11.2017
+    Date: 01.11.2017
 
-	Purpose: Pre-compiled header for this project.
+    Purpose: Pre-compiled header for this project.
 
-	All right reserved (c).
+    All right reserved (c).
 
 */
 
-#ifndef _PH_HPP_
-#define _PH_HPP_
+#ifndef PH_HPP_
+#define PH_HPP_
 
 // STL Headers
 #include <vector>
@@ -20,15 +20,28 @@
 #include <functional>
 #include <memory>
 #include <fstream>
-#include <iostream >
+#include <iostream>
 #include <initializer_list>
+#include <tuple>
+#include <map>
 
 #ifdef _WIN32
-	#define _USE_MATH_DEFINES
+  #define _USE_MATH_DEFINES
 #endif
 #include <math.h>
 
 // Boost headers
 #include<boost/noncopyable.hpp>
+
+
+// Qt Headers
+#include <QChart>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QBarSeries>
+#include <QBarCategoryAxis>
+#include <QtCharts/QValueAxis>
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QLegend>
 
 #endif // ! _PH_HPP_

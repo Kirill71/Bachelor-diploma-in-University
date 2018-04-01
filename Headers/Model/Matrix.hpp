@@ -13,14 +13,10 @@
 
 /*---------------------------------------------------------------------------*/
 
-#ifndef _MATRIX_HPP_
-#define _MATRIX_HPP_
+#ifndef MATRIX_HPP_
+#define MATRIX_HPP_
 
 /*---------------------------------------------------------------------------*/
-
-//#include <vector>
-//#include <memory>
-//#include <initializer_list>
 
 #include "Headers/ph/ph.hpp"
 
@@ -36,6 +32,7 @@ public:
 	using MatrixDataType = double;
 
 	using Row = std::vector< MatrixDataType >;
+
 	using Column = std::vector< MatrixDataType >;
 
 /*---------------------------------------------------------------------------*/
@@ -49,17 +46,18 @@ private:
 	using MatrixImplPtr = std::unique_ptr< MatrixImpl >;
 
 /*---------------------------------------------------------------------------*/
-	
+
 public:
 
 /*---------------------------------------------------------------------------*/
 
 	Matrix() = delete;
-	Matrix( unsigned _rowSize, unsigned _collSize );
-	Matrix( 
-			unsigned _rowSize
-		,	unsigned _collSize
-		,	std::initializer_list<MatrixDataType > _list );
+	Matrix( size_t _rowSize, size_t _collSize );
+	Matrix(
+		size_t _rowSize
+	    ,	size_t _collSize
+	    ,	std::initializer_list<MatrixDataType > _list
+	);
 
 	Matrix( const Matrix& _matrix );
 	Matrix& operator= ( const Matrix& _matrix );
@@ -88,12 +86,12 @@ public:
 	size_t collSize() const noexcept { return  m_collSize; }
 
 	bool empty() const noexcept { return m_matrix->empty(); }
-	
+
 	void insertRow( const Row& _row );
 	void insertColumn( const Column& _column );
 
-	const Row& operator[] ( unsigned _index ) const;
-	Row& operator[] ( unsigned _index );
+	const Row& operator[] ( size_t _index ) const;
+	Row& operator[] ( size_t _index );
 
 	void clear();
 
@@ -109,7 +107,7 @@ private:
 	friend  std::ostream& operator<< ( std::ostream& _ostream, const Matrix& _matrix );
 	friend  const std::istream& operator>> ( std::istream& _istream, Matrix& _matrix );
 
-	auto makeMatrixImpl( unsigned _rowSize )   const  noexcept;
+	auto makeMatrixImpl( size_t _rowSize )   const  noexcept;
 
 /*---------------------------------------------------------------------------*/
 
@@ -124,4 +122,4 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-#endif // !_MATRIX_HPP_
+#endif // !MATRIX_HPP_

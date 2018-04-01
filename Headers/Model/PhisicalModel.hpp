@@ -1,24 +1,26 @@
 /*
-	2018
+    2018
 
-	Author : Kirill Zharenkov, Aldec-KTC Team.
+    Author : Kirill Zharenkov, Aldec-KTC Team.
 
-	Date creation: 20.01.2018
+    Date creation: 20.01.2018
 
-	Purpose: class for representation phisical model.
+    Purpose: class for representation phisical model.
 
-	All right reserved (c).
+    All right reserved (c).
 
 */
 
 /*---------------------------------------------------------------------------*/
 
-#ifndef _PHISICAL_MODEL_HPP_
-#define _PHISICAL_MODEL_HPP_
+#ifndef PHISICAL_MODEL_HPP_
+#define PHISICAL_MODEL_HPP_
 
 /*---------------------------------------------------------------------------*/
 
-#include"Headers\ph\ph.hpp"
+#include "Headers/ph/ph.hpp"
+#include "Headers/Model/Gauss.hpp"
+#include "Headers/Utils/Log.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -27,31 +29,21 @@ class PhisicalModel
 
 /*---------------------------------------------------------------------------*/
 
-	using FileImpl = std::fstream;
+    using LogImplPtr = std::unique_ptr< Log >;
 
-	using FileImplPtr = std::unique_ptr< FileImpl >;
+    using Table = std::vector<
+            std::pair<
+                    double
+                  , double
+             >
+    >;
 
-/*---------------------------------------------------------------------------*/
+    using Vector = Gauss::Vector;
 
-	const std::string ScatteringFilePath = "Scattering.dat";
-
-	const std::string ChartFilePath = "Chart.dat";
-
-/*---------------------------------------------------------------------------*/
-
-	 const double averageSpeedSoundInSeaWater = 1.522E5;
 
 /*---------------------------------------------------------------------------*/
 
-public:
-
-/*---------------------------------------------------------------------------*/
-
-	PhisicalModel() = default;
-
-	 explicit PhisicalModel( const std::string& _filePath );
-
-	 ~PhisicalModel();
+    const double averageSpeedSoundInSeaWater = 1.522E5;
 
 /*---------------------------------------------------------------------------*/
 
@@ -59,7 +51,35 @@ public:
 
 /*---------------------------------------------------------------------------*/
 
-	 void calculatePhisicalModel();
+    using ChartData = std::tuple<
+            Table
+          , Gauss::Vector
+          , Gauss::Vector
+          , Gauss::Vector
+    >;
+
+/*---------------------------------------------------------------------------*/
+
+public:
+
+/*---------------------------------------------------------------------------*/
+
+    PhisicalModel() = default;
+
+    PhisicalModel(
+         const std::string& _inputFilePath
+      ,  const std::string& _inputStatFilePath
+    );
+
+    ~PhisicalModel();
+
+/*---------------------------------------------------------------------------*/
+
+public:
+
+/*---------------------------------------------------------------------------*/
+
+   ChartData calculatePhisicalModel();
 
 /*---------------------------------------------------------------------------*/
 
@@ -67,19 +87,9 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-	double  beta( double _scalar ) const noexcept;
+    double  beta( double _scalar ) const noexcept;
 
-	double resonanceFrequency( double _radius, double _d ) const noexcept;
-
-
-private:
-
-/*---------------------------------------------------------------------------*/
-
-	auto makeFileImpl( 
-			const std::string& _filePath
-		,	FileImpl::openmode _mode = FileImpl::in 
-	) const noexcept;
+    double resonanceFrequency( double _radius, double _d ) const noexcept;
 
 /*---------------------------------------------------------------------------*/
 
@@ -87,46 +97,53 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-	FileImplPtr m_inputFile;
+  auto makeLogImpl(
+        const std::string& _inputFile
+      , const std::string& _inputStatFile
+  ) const noexcept;
 
-	FileImplPtr m_outputScatteringFile;
-	FileImplPtr m_outputGraphicsFile;
+/*---------------------------------------------------------------------------*/
+
+private:
+
+/*---------------------------------------------------------------------------*/
+
+    LogImplPtr m_log;
+
 /*---------------------------------------------------------------------------*/
 
 }; // class PhisicalModel
 
  /*---------------------------------------------------------------------------*/
 
-
-inline double 
+inline double
 PhisicalModel::beta( double _scalar ) const noexcept
 {
-	return _scalar * _scalar;
+        return _scalar * _scalar;
 
 } // PhisicalModel::beta
 
 /*---------------------------------------------------------------------------*/
 
-inline double 
+inline double
 PhisicalModel::resonanceFrequency( double _radius, double _d ) const noexcept
 {
-	return _radius / _d;
+        return _radius / _d;
 
 } // PhisicalModel::resonanceFrequency
 
 /*---------------------------------------------------------------------------*/
 
 inline auto
-PhisicalModel::makeFileImpl(
-		const std::string& _filePath
-	,	FileImpl::openmode _mode 
+PhisicalModel::makeLogImpl(
+    const std::string& _inputFilePath
+  , const std::string& _inputStatFilePath
 ) const noexcept
 {
-	return std::make_unique< FileImpl >( _filePath, _mode );
+    return std::make_unique< Log >(_inputFilePath, _inputStatFilePath );
 
-} // PhisicalModel::makeFileImpl
-
+} // PhisicalModel::makeLogImpl
 
 /*---------------------------------------------------------------------------*/
 
-#endif // ! _PHISICAL_MODEL_HPP
+#endif // !PHISICAL_MODEL_HPP

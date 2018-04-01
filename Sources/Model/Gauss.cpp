@@ -1,4 +1,4 @@
-#include "Headers\Model\Gauss.hpp"
+#include "Headers/Model/Gauss.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -45,9 +45,9 @@ Gauss::resolveSystem()
 	{
 		auto & matrix{ *m_matrix };
 
-		const unsigned MatrixSize = matrix.rowSize();
+		const size_t MatrixSize = matrix.rowSize();
 
-		unsigned sameVariable = 0;
+		size_t sameVariable = 0;
 
 		/*-------------------------------------------------
 					 lambda definitions
@@ -61,17 +61,17 @@ Gauss::resolveSystem()
 
 		/*-------------------------------------------------*/
 
-		auto swapRowWithZero = [ & ]( unsigned _k )
+		auto swapRowWithZero = [ & ]( size_t _k )
 		{
 			double maxAbs;
-			unsigned rowMaxPos = _k;
-			unsigned j = 0;
+			size_t rowMaxPos = _k;
+			size_t j = 0;
 
-			while (j <= MatrixSize - 1 ) 
+			while (j <= MatrixSize - 1 )
 			{
 				maxAbs = 0.0;
 
-				for (unsigned i = _k; i < MatrixSize; ++i)
+				for ( size_t i = _k; i < MatrixSize; ++i)
 				{
 					maxAbs = std::max( fabs( matrix[i][j]), maxAbs );
 					rowMaxPos = i;
@@ -87,38 +87,38 @@ Gauss::resolveSystem()
 
 			if (rowMaxPos != _k && matrix[_k][_k] == 0.0 )
 			{
-				for (unsigned i = j; i < MatrixSize; ++i )
+				for ( size_t i = j; i < MatrixSize; ++i )
 					std::swap( matrix[_k][i], matrix[rowMaxPos][i]);
 			}
 		};
 
 		/*--------------------------------------------------------*/
 
-		auto divideEquation = [ & ]( unsigned _k )
+		auto divideEquation = [ & ]( size_t _k )
 		{
 			auto divisor = matrix[ _k ][ _k ];
-			for (unsigned i = 0; i < MatrixSize + 1; ++i)
+			for ( size_t i = 0; i < MatrixSize + 1; ++i)
 				matrix[_k][i] /= divisor;
 		};
 
 		/*------------------------------------------------------*/
 
-		auto dedactEquation = [&]( unsigned _k )
+		auto dedactEquation = [&]( size_t _k )
 		{
-			for (unsigned i = 0; i < MatrixSize; ++i)
+			for (size_t i = 0; i < MatrixSize; ++i)
 			{
 				if (i != _k)
 				{
 					auto multiplier = matrix[i][_k];
-					for (unsigned j = 0; j < MatrixSize + 1; ++j)
+					for (size_t j = 0; j < MatrixSize + 1; ++j)
 						matrix[ i ][ j ] -= multiplier * matrix[ _k ][ j ];
 				}
 			}
 		};
 
 		/*-----------------------------------------------------*/
-	
-		for ( unsigned k = 0; k < MatrixSize; ++k )
+
+		for ( size_t k = 0; k < MatrixSize; ++k )
 		{
 			swapRowWithZero( k );
 
@@ -126,7 +126,7 @@ Gauss::resolveSystem()
 
 			dedactEquation( k );
 		}
-		
+
 
 		if (sameVariable < MatrixSize) // check system compatebility
 			matrix.clear();
@@ -160,7 +160,7 @@ Gauss::getRoots()
 /*---------------------------------------------------------------------------*/
 
 Gauss::Vector
-Gauss::normalGaussianDestribution( 
+Gauss::normalGaussianDestribution(
 	unsigned _size
 ,	double _am
 ,	double _psi
