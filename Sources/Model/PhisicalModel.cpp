@@ -63,19 +63,19 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
     table.erase( --table.end() );
 
-    Vector F_exp( L );  // массив частот эксперимента
-    Vector Aph( Itr );  // массив для поиска альфы, далее будет замена на оптимизирующий алгоритм
+    Vector frecExp( L );  // массив частот эксперимента
+    Vector alphaVector( Itr );  // массив для поиска альфы, далее будет замена на оптимизирующий алгоритм
     Vector delta_al( Itr );  // массив критериев отбора
 
-    Matrix A( M , M );  // матрица для СЛАУ
-    Vector B( M );  // вектор правой части
+    Matrix systemMatrix( M , M );  // матрица для СЛАУ
+    Vector freeMembers( M );  // вектор правой части
     Vector mv_f( L );  // то, что мы должны приблизить к решению
 
-    Matrix Umn( M + 1, N + 1 );  // матрица базисных функций
-    Matrix Imn( M + 1, N + 1 );  // матрица интеграла от б.ф
-    Matrix Kmn_fr( L, N + 1 );  // матрица ядра подинтегральной функции
-    Vector Lm_r( M + 1 );  // полиномы
-    Matrix Im_N( L, M + 1 );  // матрица интегрирования
+    Matrix basisFuncMatrix( M + 1, N + 1 );  // матрица базисных функций
+    Matrix integralBasisFancMatrix( M + 1, N + 1 );  // матрица интеграла от б.ф
+    Matrix integralFuncCernalMatrix( L, N + 1 );  // матрица ядра подинтегральной функции
+    Vector polinomsMatrix( M + 1 );  // полиномы
+    Matrix integrationMatrix( L, M + 1 );  // матрица интегрирования
 
           /*  массивы для посчетов количества пузырьков */
     Vector Nm( N );
@@ -95,15 +95,15 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
     for ( size_t i = 0; i < L; i++)
     {
-        log( Log::FileType::Input ) >> F_exp[i];       //  частоты исследования
-        log() << F_exp[i] << std::endl;
+        log( Log::FileType::Input ) >> frecExp[i];       //  частоты исследования
+        log() << frecExp[i] << std::endl;
     }
 
     log() << "   Регуляризирующие значения альфа\n" << std::endl;
     for (size_t i = 0; i < Itr; ++i)
     {
-        log( Log::FileType::Input ) >> Aph[i];
-        log() << Aph[i] << std::endl;
+        log( Log::FileType::Input ) >> alphaVector[i];
+        log() << alphaVector[i] << std::endl;
     }
     radiusNorm = radiusBubbleMin / radiusBubbleMax;
 
@@ -116,8 +116,6 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
     log() << std::endl << std::endl;
 
-    //   dd = 3.26*sqrt(1.0+0.098*h);   // for gas
-    //dd = 3.15*sqrt( 1.0 + 0.1*h );         // for methane
     dd = 10.6276*(1.0+0.00985*h);
 
     double a,f,b;
@@ -128,7 +126,7 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     for ( size_t i = 0; i < N; ++i )
     {
         for (size_t j=0; j<M; ++j )
-            Umn[ j ][ i ] =
+            basisFuncMatrix[ j ][ i ] =
                 exp( -b *( j + 1 ) * radiusCollection[ i ] ) * pow( radiusCollection[ i ] , a );
     }
 
@@ -139,7 +137,7 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     double squareRadius( 0.0 );
     for ( size_t k = 0; k < L; ++k )
     {
-        f = F_exp[k]; // не понятно название этой переменной
+        f = frecExp[k]; // не понятно название этой переменной
 
         for ( size_t i = 0; i < N; ++i )
         {
@@ -148,7 +146,7 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
             // The Medwin formula - the backscattering cross-section of a gas-filled
 
-            Kmn_fr[k][i] = squareRadius / ((resonanceFreq / (f * f) - 1.0)*(resonanceFreq / (f * f) - 1.0 ) + b * b );
+            integralFuncCernalMatrix[k][i] = squareRadius / ((resonanceFreq / (f * f) - 1.0)*(resonanceFreq / (f * f) - 1.0 ) + b * b );
         }
     }
 
@@ -159,13 +157,13 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     {
         for (  size_t j = 0; j < M; ++j )
         {
-            Imn[j][0] = 0.0;
+            integralBasisFancMatrix[j][0] = 0.0;
             for ( size_t i = 0; i<N; ++i )
             {
-                ser = 0.5*deltaRadius*(Kmn_fr[k][i] * Umn[j][i] + Kmn_fr[k][i + 1] * Umn[j][i + 1]);
-                Imn[j][i + 1] = Imn[j][i] + ser;
+                ser = 0.5*deltaRadius*(integralFuncCernalMatrix[k][i] * basisFuncMatrix[j][i] + integralFuncCernalMatrix[k][i + 1] * basisFuncMatrix[j][i + 1]);
+                integralBasisFancMatrix[j][i + 1] = integralBasisFancMatrix[j][i] + ser;
             }
-            Im_N[k][j] = Imn[j][N];
+            integrationMatrix[k][j] = integralBasisFancMatrix[j][N];
         }
     }
 
@@ -207,9 +205,9 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     {
         mv_f[k] = 0.0;
         for (size_t i=0; i<N; ++i )
-            mv_f[ k ] += 0.5 * deltaRadius * ( Kmn_fr[ k ][ i ] * Nm[ i ] + Kmn_fr[ k ][ i+1 ] * Nm[ i+1 ] );
+            mv_f[ k ] += 0.5 * deltaRadius * ( integralFuncCernalMatrix[ k ][ i ] * Nm[ i ] + integralFuncCernalMatrix[ k ][ i+1 ] * Nm[ i+1 ] );
 
-        log() << "\nКоэффициент объемного рассеяния на частоте " << F_exp[k] << " = " << mv_f[k] << "\n" << std::endl;
+        log() << "\nКоэффициент объемного рассеяния на частоте " << frecExp[k] << " = " << mv_f[k] << "\n" << std::endl;
     }
 
     log() << "\n" << std::endl;
@@ -224,17 +222,17 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
     for ( size_t j = 0; j < M; ++j )
     {
-        B[j] = 0.0;
+        freeMembers[j] = 0.0;
         for ( size_t i = 0; i < M; ++i )
         {
-            A[j][i] = 0.0;
+            systemMatrix[j][i] = 0.0;
             for ( size_t k = 0; k < L; ++k )
-                A[j][i] += Im_N[k][i] * Im_N[k][j] / L;
+                systemMatrix[j][i] += integrationMatrix[k][i] * integrationMatrix[k][j] / L;
         }
 
         for ( size_t k = 0; k < L; ++k )
         {
-            B[j] += mv_f[k] * Im_N[k][j];
+            freeMembers[j] += mv_f[k] * integrationMatrix[k][j];
         }
     }
 
@@ -242,11 +240,11 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
     for ( size_t iter = 0; iter < Itr; ++iter ) // Iteration
     {
-        alpha = Aph[iter];
+        alpha = alphaVector[iter];
         log() << " Alpha : = " << alpha << std::endl;
 
          for ( size_t i = 0; i < M; ++i )
-            A[i][i] += alpha;
+            systemMatrix[i][i] += alpha;
 
          log() << "\n Исходная матрица [A]: " << std::endl;
 
@@ -254,17 +252,17 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
          {
             for (size_t j = 0; j < M; ++j)
             {
-                log() << A[i][j] << " ";
+                log() << systemMatrix[i][j] << " ";
                 log() << std::endl;
             }
 
-            log() << "\n" << B[i] << "\n";
+            log() << "\n" << freeMembers[i] << "\n";
             log() << std::endl;
          }
 
       //  Решение СЛАУ
 
-        Gauss resolver(A, B);
+        Gauss resolver(systemMatrix, freeMembers);
         auto X = resolver.getRoots();
 
       // Анализ результатов
@@ -295,7 +293,7 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
             for ( size_t i = 0; i < M; ++i)
             {
                 Nm_s[i] = X[i];
-                mv_fal[k] += Nm_s[i] * Im_N[k][i];
+                mv_fal[k] += Nm_s[i] * integrationMatrix[k][i];
             }
             log() << "\nКоэффициент объемного рассеяния обратной задачи - " << mv_fal[k] << std::endl;
         }
@@ -316,7 +314,7 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
             for ( size_t k = 0; k < N; ++k )
             {
                 for ( size_t i = 0; i < M; ++i )
-                    n_r[k] += Nm_s[i] * Umn[i][k];
+                    n_r[k] += Nm_s[i] * basisFuncMatrix[i][k];
             }
         }
     }

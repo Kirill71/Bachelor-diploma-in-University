@@ -6,7 +6,6 @@
 
 QT       += core gui
 QT       += charts
-QT		 += core
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -39,8 +38,9 @@ Sources/Model/PhisicalModel.cpp \
 Sources/Tests/testMain.cpp \
 Sources/ph/ph.cpp \
 Sources/Utils/Log.cpp \
-Sources/Views/ChartBuilder.cpp
-
+Sources/Views/ChartBuilder.cpp \
+Sources/Views/ChartBuilderDirector.cpp \
+    Sources/Controllers/ChartController.cpp
 
 HEADERS += \
 MainWindow.hpp \
@@ -51,8 +51,9 @@ Headers/ph/ph.hpp \
 Headers/Tests/testslib.hpp \
 Headers/Utils/Log.hpp \
 Headers/Views/ChartBuilder.hpp \
-    Headers/Views/Builder.hpp
-
+Headers/Views/Builder.hpp \
+Headers/Views/CharBuilderDirector.hpp \
+Headers/Controllers/ChartController.hpp \
 
 FORMS += \
 mainwindow.ui

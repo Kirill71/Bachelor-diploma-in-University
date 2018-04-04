@@ -19,7 +19,7 @@
 /*---------------------------------------------------------------------------*/
 
 #include "Headers/ph/ph.hpp"
-#include "Headers/Model/PhisicalModel.hpp"
+#include"Headers/Controllers/ChartController.hpp"
 
 #include <QWidget>
 
@@ -40,7 +40,7 @@ class MainWindow : public QWidget
 
 /*---------------------------------------------------------------------------*/
 
-  using PhisicalModelImplPtr = std::unique_ptr< PhisicalModel >;
+  using ChartControllerImplPtr = std::unique_ptr< ChartController >;
 
  /*---------------------------------------------------------------------------*/
 
@@ -49,12 +49,12 @@ public:
  /*---------------------------------------------------------------------------*/
 
   explicit MainWindow(
-        QWidget *_parent = nullptr
+        QWidget* _parent = nullptr
     ,   const std::string& _inputFilePath = std::string()
     ,   const std::string& _filePath = std::string()
   );
 
-  ~MainWindow() noexcept;
+  ~MainWindow();
 
 /*---------------------------------------------------------------------------*/
 
@@ -62,9 +62,9 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-  auto makePhisicalModelImpl(
+  auto makeChartControllerImpl(
         const std::string& _inputFilePath
-      , const std::string& _inputStatFilePath
+    ,   const std::string& _inputStatFilePath
   ) const noexcept;
 
 /*---------------------------------------------------------------------------*/
@@ -75,7 +75,7 @@ private:
 
   Ui::MainWindow *ui;
 
-  PhisicalModelImplPtr m_model;
+  ChartControllerImplPtr m_controller;
 
 /*---------------------------------------------------------------------------*/
 
@@ -84,12 +84,17 @@ private:
 /*---------------------------------------------------------------------------*/
 
 inline auto
-MainWindow::makePhisicalModelImpl(
+MainWindow::makeChartControllerImpl(
       const std::string& _inputFilePath
     , const std::string& _inputStatFilePath
  ) const noexcept
 {
-    return std::make_unique< PhisicalModel > ( _inputFilePath, _inputStatFilePath );
+
+    return new ChartController(
+            const_cast< MainWindow* >( this )
+       ,    _inputFilePath
+       ,    _inputStatFilePath
+    );
 
 } // MainWindow::makePhisicalModelImpl
 

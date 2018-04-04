@@ -44,4 +44,7 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QLegend>
 
+
+/*---------------------------------------------------------------------------*/
+
 #endif // ! _PH_HPP_

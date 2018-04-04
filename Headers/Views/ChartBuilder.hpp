@@ -8,20 +8,9 @@
 
 /*---------------------------------------------------------------------------*/
 
- QT_CHARTS_USE_NAMESPACE
-
-/*---------------------------------------------------------------------------*/
-
 class ChartBuilder
             :   public Builder
 {
-
-/*---------------------------------------------------------------------------*/
-
-    using ChartImpl = QChart*;
-
-    using ChartImplPtr = std::unique_ptr< ChartImpl >;
-
 /*---------------------------------------------------------------------------*/
 
 public:
@@ -40,15 +29,9 @@ public:
 
     void build() override;
 
-/*---------------------------------------------------------------------------*/
+    QChart* getHistohramChart() const override;
 
-private:
-
-/*---------------------------------------------------------------------------*/
-
-    void buildHistohramChart();
-
-    void buildLineChart();
+    QChart* getLineChart() const override;
 
 /*---------------------------------------------------------------------------*/
 
@@ -56,9 +39,19 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-    ChartImplPtr m_histohramChart;
+    void buildHistohramChart( const PhisicalModel::ChartData& _data );
 
-    ChartImplPtr m_lineChart;
+    void buildLineChart( const PhisicalModel::ChartData& _data );
+
+/*---------------------------------------------------------------------------*/
+
+private:
+
+/*---------------------------------------------------------------------------*/
+
+    QChart* m_histohramChart;
+
+    QChart* m_lineChart;
 
     PhisicalModel& m_model;
 
