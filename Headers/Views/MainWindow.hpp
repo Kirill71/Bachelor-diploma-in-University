@@ -42,7 +42,11 @@ class MainWindow : public QWidget
 
   using ChartControllerImplPtr = std::unique_ptr< ChartController >;
 
- /*---------------------------------------------------------------------------*/
+  using SetupValuesCollImpl = std::map< const int, QString >;
+
+  using SetupValuesCollImplPtr = std:: unique_ptr < SetupValuesCollImpl >;
+
+/*---------------------------------------------------------------------------*/
 
 public:
 
@@ -50,11 +54,19 @@ public:
 
   explicit MainWindow(
         QWidget* _parent = nullptr
-    ,   const std::string& _inputFilePath = std::string()
-    ,   const std::string& _filePath = std::string()
   );
 
   ~MainWindow();
+
+/*---------------------------------------------------------------------------*/
+
+private slots:
+
+/*---------------------------------------------------------------------------*/
+
+    void on_openFile_clicked();
+
+    void on_visualizeButton_clicked();
 
 /*---------------------------------------------------------------------------*/
 
@@ -67,6 +79,10 @@ private:
     ,   const std::string& _inputStatFilePath
   ) const noexcept;
 
+  auto makeSetupCollectionImpl() const noexcept;
+
+  void fillSetupData();
+
 /*---------------------------------------------------------------------------*/
 
 private:
@@ -76,6 +92,10 @@ private:
   Ui::MainWindow *ui;
 
   ChartControllerImplPtr m_controller;
+
+  SetupValuesCollImplPtr m_setupColl;
+
+  QString m_statFilePath;
 
 /*---------------------------------------------------------------------------*/
 
@@ -90,13 +110,22 @@ MainWindow::makeChartControllerImpl(
  ) const noexcept
 {
 
-    return new ChartController(
+    return std::make_unique< ChartController >(
             const_cast< MainWindow* >( this )
        ,    _inputFilePath
        ,    _inputStatFilePath
     );
 
 } // MainWindow::makePhisicalModelImpl
+
+/*---------------------------------------------------------------------------*/
+
+inline auto
+MainWindow::makeSetupCollectionImpl() const noexcept
+{
+    return std::make_unique< SetupValuesCollImpl >();
+
+} // MainWindow::makeSetupCollectionImpl
 
 /*---------------------------------------------------------------------------*/
 

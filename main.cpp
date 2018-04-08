@@ -5,19 +5,12 @@
 
 int main( int argc, char *argv[] )
 {
-    QApplication a( argc, argv );
+    QApplication application( argc, argv );
 
-    const QString inputFilePath{ QDir::currentPath() + "/Input_value_viol.inf" };
-    const QString statFilePath{ QDir::currentPath() + "/Stat.inf" };
+    MainWindow window;
 
-    MainWindow w(
-             nullptr
-         ,   inputFilePath.toStdString()
-         ,   statFilePath.toStdString()
-    );
+    window.show();
 
-    w.show();
-
-    return a.exec();
+    return application.exec();
 
 }

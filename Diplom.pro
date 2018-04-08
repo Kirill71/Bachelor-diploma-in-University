@@ -54,7 +54,8 @@ Headers/Views/ChartBuilder.hpp \
 Headers/Views/Builder.hpp \
 Headers/Views/CharBuilderDirector.hpp \
 Headers/Controllers/ChartController.hpp \
-    Headers/Views/MainWindow.hpp
+    Headers/Views/MainWindow.hpp \
+    Headers/Model/Setup.hpp
 
 FORMS += \
 mainwindow.ui

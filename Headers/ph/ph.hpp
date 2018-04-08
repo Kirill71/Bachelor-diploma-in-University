@@ -32,6 +32,7 @@
 
 // Boost headers
 #include<boost/noncopyable.hpp>
+#include<boost/lexical_cast.hpp>
 
 
 // Qt Headers
@@ -43,6 +44,14 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QLegend>
+#include <QList>
+#include <QUrl>
+#include <QStringList>
+#include <QFileDialog>
+#include <QMessageBox>
+
+//User defined headers
+#include "Headers/Model/Setup.hpp"
 
 
 /*---------------------------------------------------------------------------*/
