@@ -31,7 +31,7 @@ INCLUDEPATH += $$PWD 'include/boost_1_65_1/'
 
 SOURCES += \
 main.cpp \
-MainWindow.cpp \
+Sources/Views/MainWindow.cpp \
 Sources/Model/Gauss.cpp \
 Sources/Model/Matrix.cpp \
 Sources/Model/PhisicalModel.cpp \
@@ -40,10 +40,10 @@ Sources/ph/ph.cpp \
 Sources/Utils/Log.cpp \
 Sources/Views/ChartBuilder.cpp \
 Sources/Views/ChartBuilderDirector.cpp \
-    Sources/Controllers/ChartController.cpp
+Sources/Controllers/ChartController.cpp
 
 HEADERS += \
-MainWindow.hpp \
+Headers/Views/MainWindow.hpp \
 Headers/Model/Gauss.hpp \
 Headers/Model/Matrix.hpp \
 Headers/Model/PhisicalModel.hpp \
@@ -54,6 +54,7 @@ Headers/Views/ChartBuilder.hpp \
 Headers/Views/Builder.hpp \
 Headers/Views/CharBuilderDirector.hpp \
 Headers/Controllers/ChartController.hpp \
+    Headers/Views/MainWindow.hpp
 
 FORMS += \
 mainwindow.ui

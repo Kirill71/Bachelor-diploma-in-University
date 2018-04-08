@@ -1,4 +1,4 @@
-#include "MainWindow.hpp"
+#include "Headers/Views/MainWindow.hpp"
 
 #include "Headers/Views/CharBuilderDirector.hpp"
 

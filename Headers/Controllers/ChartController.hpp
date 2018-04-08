@@ -29,7 +29,7 @@ public:
        ,   const std::string& _inputStatFilePath
     );
 
-    auto & getModel() const noexcept { return *m_model; }
+    auto& getModel() const noexcept { return *m_model; }
 
 
 /*---------------------------------------------------------------------------*/
