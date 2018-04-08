@@ -86,8 +86,8 @@ MainWindow::fillSetupData()
 
     auto const & lisfreqSoundingList
           = ui->FreqSoundingTextEdit->toPlainText().split(",");
-    auto const & list
-          = ui->
+    auto const & regularAlfaValuesList
+          = ui->regularAlfaValuesTextEdit->toPlainText().split(",");
 
     try
     {

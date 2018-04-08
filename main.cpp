@@ -1,7 +1,6 @@
 #include "Headers/Views/MainWindow.hpp"
 
 #include <QApplication>
-#include <QDir>
 
 int main( int argc, char *argv[] )
 {
