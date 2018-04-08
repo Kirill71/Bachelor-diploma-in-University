@@ -13,8 +13,8 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="1">
+  <layout class="QVBoxLayout" name="verticalLayout_6">
+   <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -23,19 +23,26 @@
       <attribute name="title">
        <string>Setup</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
-        <widget class="QPushButton" name="openFile">
-         <property name="text">
-          <string>Выбрать файл</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QPushButton" name="openFile">
+           <property name="text">
+            <string>Выбрать файл</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="fileViewLineEdit"/>
+         </item>
+        </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
               <widget class="QLabel" name="IntegralSeparateLabel">
@@ -62,7 +69,7 @@
              </item>
             </layout>
            </item>
-           <item row="1" column="0">
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QLabel" name="systemSizeLabel">
@@ -89,7 +96,7 @@
              </item>
             </layout>
            </item>
-           <item row="2" column="0">
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
               <widget class="QLabel" name="radiusMinLabel">
@@ -122,7 +129,7 @@
              </item>
             </layout>
            </item>
-           <item row="3" column="0">
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
               <widget class="QLabel" name="radiusMaxLabel">
@@ -155,7 +162,40 @@
              </item>
             </layout>
            </item>
-           <item row="4" column="0">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="depthLabel">
+               <property name="text">
+                <string>Глубина добычи(м):</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="depthSpinBox">
+               <property name="decimals">
+                <number>3</number>
+               </property>
+               <property name="minimum">
+                <double>1.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>12000.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>1.000000000000000</double>
+               </property>
+               <property name="value">
+                <double>100.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
               <widget class="QLabel" name="demfRatioLabel">
@@ -168,7 +208,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="doubleSpinBox">
+              <widget class="QDoubleSpinBox" name="demfRatioSpinBox">
                <property name="decimals">
                 <number>5</number>
                </property>
@@ -182,12 +222,42 @@
              </item>
             </layout>
            </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLabel" name="epsilonLabel">
+               <property name="text">
+                <string>Точность вычислений:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QDoubleSpinBox" name="epsilonSpinBox">
+               <property name="decimals">
+                <number>5</number>
+               </property>
+               <property name="minimum">
+                <double>0.000010000000000</double>
+               </property>
+               <property name="maximum">
+                <double>0.100000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.000010000000000</double>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
           </layout>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
+          <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout">
+            <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
               <widget class="QLabel" name="alfaNumber_2">
                <property name="text">
@@ -218,7 +288,7 @@
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_2">
                <item>
-                <widget class="QTextEdit" name="textEdit_2"/>
+                <widget class="QTextEdit" name="regularAlfaValuesTextEdit"/>
                </item>
               </layout>
              </item>

@@ -84,17 +84,17 @@ MainWindow::fillSetupData()
     insert( DemfRatio, ui->demfRatioSpinBox->value() );
     insert( Epsilon, ui->epsilonSpinBox->value() );
 
-    auto const & list
+    auto const & lisfreqSoundingList
           = ui->FreqSoundingTextEdit->toPlainText().split(",");
-    auto const & list
-          = ui->regularAlfaValueTextEdit->toPlainText().split(",");
+    auto const & regularAlfaValuesList
+          = ui->regularAlfaValuesTextEdit->toPlainText().split(",");
 
     try
     {
-        for( auto const& value: list )
+        for( auto const& value: lisfreqSoundingList )
             boost::lexical_cast< double >( value.toStdString() );
 
-    } catch ( boost::bad_lexical_cast & _ex ) {
+    } catch ( boost::bad_lexical_cast ) {
         QMessageBox msgBox;
         msgBox.setText( "Частоты зондирования введены некорректно!" );
         msgBox.exec();
