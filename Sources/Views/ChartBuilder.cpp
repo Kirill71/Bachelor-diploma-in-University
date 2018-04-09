@@ -73,7 +73,7 @@ ChartBuilder::buildLineChart( const PhisicalModel::ChartData& _data )
     for ( size_t i = 0; i < nmCollection.size(); ++i )
     {
         *series << QPointF( radiusCollection[ i ], nmCollection[ i ] );
-        series->setName("input chart");
+        series->setName("прямая задача");
     }
 
     m_lineChart->addSeries(series);
@@ -82,7 +82,7 @@ ChartBuilder::buildLineChart( const PhisicalModel::ChartData& _data )
     for ( size_t i = 0; i< nrCollection.size(); ++i )
     {
         *series << QPointF(radiusCollection[ i ], nrCollection[ i ] );
-        series->setName("output chart");
+        series->setName("обратная задача");
     }
 
     m_lineChart->setAnimationOptions( QChart::SeriesAnimations );

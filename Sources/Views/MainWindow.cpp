@@ -70,8 +70,8 @@ MainWindow::fillSetupData()
         return;
     }
     insert( SoundingFreqNumber, freqSoundingList.size() );
-    insert( AlfaNumber, regularAlfaValuesList.size() );
-    insert(  RegularAlfaValue, regularAlfaValuesList );
+    insert( AlfaNumber, index );
+    insert( RegularAlfaValue, ui->regularAlfaValuesTextEdit->toPlainText() );
 
     try
     {
@@ -85,7 +85,7 @@ MainWindow::fillSetupData()
 
     }
 
-    insert(SoundingFrequensies, freqSoundingList );
+    insert(SoundingFrequensies, ui->FreqSoundingTextEdit->toPlainText() );
 }
 
 
@@ -105,6 +105,12 @@ MainWindow::on_visualizeButton_clicked()
     {
        getMessageBox("Файл статистики не выбран!");
        return;
+    }
+    if ( ui->tabLayout->count() )
+    {
+       m_setupColl->clear();
+       delete ui->tabLayout->takeAt( 0 );
+       delete ui->tabLayout->takeAt( 0 );
     }
 
     fillSetupData();

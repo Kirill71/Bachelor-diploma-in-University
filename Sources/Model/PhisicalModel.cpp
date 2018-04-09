@@ -95,16 +95,17 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     log() << "   Прямая задача\n" << std::endl;
     log() << "   Частоты контроля\n" << std::endl;
 
+    auto str =  m_setup[ SoundingFrequensies ];
     for ( size_t i = 0; i < L; ++i)
     {
-        frecExp[i] =  m_setup[ SoundingFrequensies ].split("")[i].toDouble();       //  частоты исследования
+        frecExp[i] =  m_setup[ SoundingFrequensies ].split(",")[i].toDouble();       //  частоты исследования
         log() << frecExp[i] << std::endl;
     }
 
     log() << "   Регуляризирующие значения альфа\n" << std::endl;
     for (size_t i = 0; i < Itr; ++i)
     {
-        alphaVector[i] = m_setup[ RegularAlfaValue ].split("")[i].toDouble();
+        alphaVector[i] = m_setup[ RegularAlfaValue ].split(",")[i].toDouble();
         log() << alphaVector[i] << std::endl;
     }
     radiusNorm = radiusBubbleMin / radiusBubbleMax;

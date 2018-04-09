@@ -17,11 +17,11 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="setupTab">
       <attribute name="title">
-       <string>Setup</string>
+       <string>Настройка</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
@@ -345,7 +345,7 @@
      </widget>
      <widget class="QWidget" name="chartsTab">
       <attribute name="title">
-       <string>Charts</string>
+       <string>Визуализация</string>
       </attribute>
       <layout class="QHBoxLayout" name="tabLayout"/>
      </widget>
