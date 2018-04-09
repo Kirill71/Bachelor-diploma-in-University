@@ -4,8 +4,10 @@
 #include "Headers/ph/ph.hpp"
 #include "Headers/Model/PhisicalModel.hpp"
 
+/*---------------------------------------------------------------------------*/
 
 class MainWindow;
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -17,6 +19,8 @@ class ChartController
 
     using PhisicalModelImplPtr = std::unique_ptr< PhisicalModel >;
 
+    using SetupCollPtr = std::unique_ptr< std::map< const int, QString > >;
+
 /*---------------------------------------------------------------------------*/
 
 public:
@@ -25,7 +29,7 @@ public:
 
     ChartController(
            MainWindow* _window
-       ,   const std::string& _inputFilePath
+       ,   const SetupCollPtr& _setup
        ,   const std::string& _inputStatFilePath
     );
 
@@ -39,7 +43,7 @@ private:
 /*---------------------------------------------------------------------------*/
 
     auto makePhisicalModel(
-            const std::string& _inputFilePath
+            const SetupCollPtr& _setup
         ,   const std::string& _inputStatFilePath
     ) const noexcept;
 
@@ -61,12 +65,12 @@ private:
 
 inline auto
 ChartController:: makePhisicalModel(
-        const std::string& _inputFilePath
+        const SetupCollPtr& _setup
     ,   const std::string& _inputStatFilePath
 ) const noexcept
 {
     return std::make_unique< PhisicalModel >(
-            _inputFilePath
+            _setup
         ,   _inputStatFilePath
     );
 

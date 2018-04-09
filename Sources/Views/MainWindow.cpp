@@ -43,32 +43,6 @@ void MainWindow::on_openFile_clicked()
 /*---------------------------------------------------------------------------*/
 
 void
-MainWindow::on_visualizeButton_clicked()
-{
-    if ( m_statFilePath.isEmpty() )
-    {
-        QMessageBox msgBox;
-        msgBox.setText("Файл статистики не выбран!");
-        msgBox.exec();
-    }
-
-    fillSetupData();
-    /*-----------------------------------------------------------------------------------*/
-    const QString inputFilePath{ QDir::currentPath() + "/Input_value_viol.inf" };
-    m_controller = makeChartControllerImpl( inputFilePath.toStdString(), m_statFilePath.toStdString() );
-    /*-----------------------------------------------------------------------------------*/
-    ChartBuilderDirector director( m_controller->getModel() );
-
-    auto histohramView = new QChartView( director.getHistogramChart() );
-    auto chartView = new QChartView( director.getLineChart() );
-
-    histohramView->setRenderHint( QPainter::Antialiasing );
-    chartView->setRenderHint( QPainter::Antialiasing );
-    ui->tabLayout->addWidget(histohramView );
-    ui->tabLayout->addWidget( chartView );
-}
-
-void
 MainWindow::fillSetupData()
 {
     auto insert = [ & ]( const int _key, auto _value )
@@ -84,22 +58,65 @@ MainWindow::fillSetupData()
     insert( DemfRatio, ui->demfRatioSpinBox->value() );
     insert( Epsilon, ui->epsilonSpinBox->value() );
 
-    auto const & lisfreqSoundingList
+    auto const & freqSoundingList
           = ui->FreqSoundingTextEdit->toPlainText().split(",");
     auto const & regularAlfaValuesList
           = ui->regularAlfaValuesTextEdit->toPlainText().split(",");
 
+    int index = ui->indexAlfaSpinBox->value();
+    if ( index > regularAlfaValuesList.size() )
+    {
+        getMessageBox("Порядковый номер альфа вышел за границы диапазона!");
+        return;
+    }
+    insert( SoundingFreqNumber, freqSoundingList.size() );
+    insert( AlfaNumber, regularAlfaValuesList.size() );
+    insert(  RegularAlfaValue, regularAlfaValuesList );
+
     try
     {
-        for( auto const& value: lisfreqSoundingList )
+        for( auto const& value: freqSoundingList )
             boost::lexical_cast< double >( value.toStdString() );
 
-    } catch ( boost::bad_lexical_cast ) {
-        QMessageBox msgBox;
-        msgBox.setText( "Частоты зондирования введены некорректно!" );
-        msgBox.exec();
+    } catch ( boost::bad_lexical_cast )
+    {
+       getMessageBox("Частоты зондирования введены некорректно!");
+       return;
 
     }
 
+    insert(SoundingFrequensies, freqSoundingList );
+}
 
+
+void
+MainWindow::getMessageBox(const QString& _text ) const noexcept
+{
+    QMessageBox msgBox;
+    msgBox.setText( _text );
+    msgBox.exec();
+
+}
+
+void
+MainWindow::on_visualizeButton_clicked()
+{
+    if ( m_statFilePath.isEmpty() )
+    {
+       getMessageBox("Файл статистики не выбран!");
+       return;
+    }
+
+    fillSetupData();
+    m_controller = makeChartControllerImpl( m_setupColl, m_statFilePath.toStdString() );
+
+    ChartBuilderDirector director( m_controller->getModel() );
+
+    auto histohramView = new QChartView( director.getHistogramChart() );
+    auto chartView = new QChartView( director.getLineChart() );
+
+    histohramView->setRenderHint( QPainter::Antialiasing );
+    chartView->setRenderHint( QPainter::Antialiasing );
+    ui->tabLayout->addWidget(histohramView );
+    ui->tabLayout->addWidget( chartView );
 }

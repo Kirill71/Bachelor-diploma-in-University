@@ -3,10 +3,11 @@
 /*---------------------------------------------------------------------------*/
 
 PhisicalModel::PhisicalModel(
-        const std::string & _inputFilePath
+        const SetupCollImplPtr& _setup
     ,   const std::string & _inputStatFilePath
- )
-    :   m_log (  makeLogImpl( _inputFilePath, _inputStatFilePath ) )
+)
+    :   m_log (  makeLogImpl( _inputStatFilePath ) )
+    ,   m_setup( *_setup )
 {
 } // PhisicalModel::PhisicalModel
 
@@ -36,21 +37,22 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
                 radiusNorm,			// нормированный радиус пузырька
                 radiusBubbleMin,    // R_min < radiusBubble
                 radiusBubbleMax,    // radiusBubble > R_max
-                h,				 // указатель глубины
-                eta,                // teta > 0  // не понятно, название этой переменной
+                depth,				 // указатель глубины
+                demfRatio,                // teta > 0  // не понятно, название этой переменной
                 deltaRadius,				 // дельта прирашения по радиусу - не понятно, название этой переменной
                 dd;				 // не понятно, название этой переменной
 
     double alpha, err;
 
-    log( Log::FileType::Input ) >> N;
-    log( Log::FileType::Input ) >> M;
-    log( Log::FileType::Input ) >> L;
-    log( Log::FileType::Input ) >> radiusBubbleMin >> radiusBubbleMax;
-    log( Log::FileType::Input ) >> h;
-    log( Log::FileType::Input ) >> eta;
-    log( Log::FileType::Input ) >> Itr;
-    log( Log::FileType::Input ) >> err;
+    N = m_setup[ IntegralSeparating ].toUInt();
+    M = m_setup[ SystemSize ].toUInt();
+    L = m_setup[ SoundingFreqNumber ].toUInt();
+    radiusBubbleMin = m_setup[ RadiusMin ].toDouble();
+    radiusBubbleMax = m_setup[ RadiusMax ].toDouble();
+    depth = m_setup[ Depth ].toDouble();
+    demfRatio = m_setup[ DemfRatio].toDouble();
+    Itr = m_setup[ AlfaNumber ].toUInt();
+    err = m_setup[Epsilon].toDouble();
 
     // in the new method
     Table table;
@@ -85,24 +87,24 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
     log() << "N=" << N << " M=" << M << std::endl;
     log() << "R_min=" << radiusBubbleMin << "м" << " R_max=" << radiusBubbleMax << "м" << std::endl;
-    log() << "h=" << h << "м" << std::endl;
-    log() << "eta = " << eta << std::endl;
+    log() << "h=" << depth << "м" << std::endl;
+    log() << "eta = " << demfRatio << std::endl;
     log() << "Число инераций: " << Itr << " Ошибка точности вычислений: " << err << std::endl;
     log() << "\n" << std::endl;
 
     log() << "   Прямая задача\n" << std::endl;
     log() << "   Частоты контроля\n" << std::endl;
 
-    for ( size_t i = 0; i < L; i++)
+    for ( size_t i = 0; i < L; ++i)
     {
-        log( Log::FileType::Input ) >> frecExp[i];       //  частоты исследования
+        frecExp[i] =  m_setup[ SoundingFrequensies ].split("")[i].toDouble();       //  частоты исследования
         log() << frecExp[i] << std::endl;
     }
 
     log() << "   Регуляризирующие значения альфа\n" << std::endl;
     for (size_t i = 0; i < Itr; ++i)
     {
-        log( Log::FileType::Input ) >> alphaVector[i];
+        alphaVector[i] = m_setup[ RegularAlfaValue ].split("")[i].toDouble();
         log() << alphaVector[i] << std::endl;
     }
     radiusNorm = radiusBubbleMin / radiusBubbleMax;
@@ -116,7 +118,7 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
 
     log() << std::endl << std::endl;
 
-    dd = 10.6276*(1.0+0.00985*h);
+    dd = 10.6276*(1.0+0.00985*depth);
 
     double a,f,b;
 
@@ -177,22 +179,22 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
                 summ += it.second;
             }
       );
-    eta = 2.7; /* ( 1 / table.size() ) * summ; // 1/n*summ( y[i])*/
+    demfRatio = 2.7; /* ( 1 / table.size() ) * summ; // 1/n*summ( y[i])*/
 
     summ = 0.0;
     std::for_each(
         table.cbegin()
      ,  table.cend()
-     ,  [ &summ, eta ]( auto it )
+     ,  [ &summ, demfRatio ]( auto it )
         {
-            summ += pow( it.second - eta, 2 );
+            summ += pow( it.second - demfRatio, 2 );
         }
     );
     a = 15.0; /*sqrt( (1 / table.size() - 1) * summ );*/
 
     for ( size_t i = 0; i<N; ++i )
     {
-        Nm[i] = n_0*pow(radiusCollection[i], eta / 2.0)*exp(-radiusCollection[i]*a / 2.0);
+        Nm[i] = n_0*pow(radiusCollection[i], demfRatio / 2.0)*exp(-radiusCollection[i]*a / 2.0);
         log() << radiusCollection[ i ] << "  " << Nm[i] << std::endl;
     }
   // Конец загрузки и подготовки массивов для СЛАУ

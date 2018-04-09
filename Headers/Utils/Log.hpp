@@ -46,7 +46,6 @@ class Log
 
     enum class FileType
     {
-        Input,
         Stat,
         Scattering,
         Chart
@@ -54,10 +53,7 @@ class Log
 
 /*---------------------------------------------------------------------------*/
 
-    Log(
-            const std::string& _inputFilePath
-        ,   const std::string& _inputStatFilePath
-    );
+    explicit Log( const std::string& _inputStatFilePath );
 
     FileImpl& log( FileType _type = FileType::Scattering );
 
@@ -78,8 +74,6 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-    FileImplPtr m_inputFile;
-
     FileImplPtr m_inputStatFile;
 
     FileImplPtr m_scatteringFile;
@@ -97,9 +91,6 @@ Log::log( FileType _type )
 {
     switch ( _type )
     {
-        case FileType::Input:
-            return *m_inputFile;
-
         case FileType::Stat:
             return *m_inputStatFile;
 

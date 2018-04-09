@@ -23,7 +23,7 @@
       <attribute name="title">
        <string>Setup</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
@@ -39,7 +39,7 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <layout class="QHBoxLayout" name="horizontalLayout_19">
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
@@ -223,14 +223,41 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLabel" name="alfaIndexLabel">
+               <property name="text">
+                <string>Порядковый номер альфа:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="indexAlfaSpinBox">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="singleStep">
+                <number>1</number>
+               </property>
+               <property name="value">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
               <widget class="QLabel" name="epsilonLabel">
                <property name="text">
                 <string>Точность вычислений:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                </property>
               </widget>
              </item>
@@ -255,7 +282,7 @@
           </layout>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
+          <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
@@ -274,7 +301,7 @@
             </layout>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>
               <widget class="QLabel" name="RegularAlfaValue">
                <property name="text">
@@ -286,11 +313,7 @@
               </widget>
              </item>
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <item>
-                <widget class="QTextEdit" name="regularAlfaValuesTextEdit"/>
-               </item>
-              </layout>
+              <widget class="QTextEdit" name="regularAlfaValuesTextEdit"/>
              </item>
             </layout>
            </item>
@@ -306,13 +329,13 @@
          <property name="sizeHint" stdset="0">
           <size>
            <width>745</width>
-           <height>20</height>
+           <height>17</height>
           </size>
          </property>
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="visualizeButton">
          <property name="text">
           <string>Визуализировать</string>
          </property>

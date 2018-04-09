@@ -19,6 +19,7 @@
 /*---------------------------------------------------------------------------*/
 
 #include "Headers/ph/ph.hpp"
+
 #include"Headers/Controllers/ChartController.hpp"
 
 #include <QWidget>
@@ -43,6 +44,12 @@ class MainWindow : public QWidget
   using ChartControllerImplPtr = std::unique_ptr< ChartController >;
 
   using SetupValuesCollImpl = std::map< const int, QString >;
+
+/*---------------------------------------------------------------------------*/
+
+public:
+
+/*---------------------------------------------------------------------------*/
 
   using SetupValuesCollImplPtr = std:: unique_ptr < SetupValuesCollImpl >;
 
@@ -74,14 +81,17 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-  auto makeChartControllerImpl(
-        const std::string& _inputFilePath
+  std::unique_ptr< ChartController >
+  makeChartControllerImpl(
+        const SetupValuesCollImplPtr& _setup
     ,   const std::string& _inputStatFilePath
   ) const noexcept;
 
   auto makeSetupCollectionImpl() const noexcept;
 
   void fillSetupData();
+
+  void getMessageBox( const QString& _text ) const noexcept;
 
 /*---------------------------------------------------------------------------*/
 
@@ -103,16 +113,16 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-inline auto
+inline std::unique_ptr< ChartController >
 MainWindow::makeChartControllerImpl(
-      const std::string& _inputFilePath
+      const SetupValuesCollImplPtr& _setup
     , const std::string& _inputStatFilePath
  ) const noexcept
 {
 
     return std::make_unique< ChartController >(
             const_cast< MainWindow* >( this )
-       ,    _inputFilePath
+       ,    _setup
        ,    _inputStatFilePath
     );
 

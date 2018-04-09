@@ -58,6 +58,10 @@ public:
           , Gauss::Vector
     >;
 
+    using SetupCollImpl = std::map< const int, QString >;
+
+    using SetupCollImplPtr = std::unique_ptr< SetupCollImpl >;
+
 /*---------------------------------------------------------------------------*/
 
 public:
@@ -67,7 +71,7 @@ public:
     PhisicalModel() = default;
 
     PhisicalModel(
-         const std::string& _inputFilePath
+         const SetupCollImplPtr& _setup
       ,  const std::string& _inputStatFilePath
     );
 
@@ -97,10 +101,7 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-  auto makeLogImpl(
-        const std::string& _inputFile
-      , const std::string& _inputStatFile
-  ) const noexcept;
+  auto makeLogImpl( const std::string& _inputStatFile ) const noexcept;
 
 /*---------------------------------------------------------------------------*/
 
@@ -108,7 +109,9 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-    LogImplPtr m_log;
+   LogImplPtr m_log;
+
+   SetupCollImpl& m_setup;
 
 /*---------------------------------------------------------------------------*/
 
@@ -135,12 +138,9 @@ PhisicalModel::resonanceFrequency( double _radius, double _d ) const noexcept
 /*---------------------------------------------------------------------------*/
 
 inline auto
-PhisicalModel::makeLogImpl(
-    const std::string& _inputFilePath
-  , const std::string& _inputStatFilePath
-) const noexcept
+PhisicalModel::makeLogImpl( const std::string& _inputStatFilePath ) const noexcept
 {
-    return std::make_unique< Log >(_inputFilePath, _inputStatFilePath );
+    return std::make_unique< Log >( _inputStatFilePath );
 
 } // PhisicalModel::makeLogImpl
 

@@ -5,11 +5,11 @@
 
 ChartController::ChartController(
         MainWindow* _window
-    ,   const std::string& _inputFilePath
+    ,   const SetupCollPtr& _setup
     ,   const std::string& _inputStatFilePath
 )
     :   m_window( _window )
-    ,   m_model( makePhisicalModel( _inputFilePath, _inputStatFilePath ) )
+    ,   m_model( makePhisicalModel( _setup, _inputStatFilePath ) )
 {
 } // ChartController::ChartController
 
