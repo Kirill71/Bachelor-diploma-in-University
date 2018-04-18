@@ -26,6 +26,7 @@ ChartBuilder::build()
 void
 ChartBuilder::buildHistohramChart( const PhisicalModel::ChartData& _data )
 {
+    a
    const unsigned int SINGLE_THREAD_MODE { 1 };
    auto table = std::get< 0 >( _data );
 
@@ -62,7 +63,7 @@ ChartBuilder::buildHistohramChart( const PhisicalModel::ChartData& _data )
         m_histohramChart->setAnimationOptions( QChart::SeriesAnimations );
    };
 
-   if ( std::thread::hardware_concurrency() >= SINGLE_THREAD_MODE )
+   if ( std::thread::hardware_concurrency() > SINGLE_THREAD_MODE )
    {
        std::thread buildThread( buildHistohramTask, std::ref( table) );
        if( buildThread.joinable() )

@@ -24,7 +24,7 @@
 #include <initializer_list>
 #include <tuple>
 #include <map>
-
+#include<thread>
 #ifdef _WIN32
   #define _USE_MATH_DEFINES
 #endif
