@@ -35,6 +35,7 @@
 #include<boost/lexical_cast.hpp>
 
 // Qt Headers
+#include <QTextCodec>
 #include <QChart>
 #include <QtCharts/QBarSet>
 #include <QtCharts/QBarSeries>

@@ -81,14 +81,16 @@ ChartBuilder::buildLineChart( const Defines::ChartData& _data )
 
     QLineSeries* series = new QLineSeries();
 
-    auto lineChartSetter = [ & ]( const auto& _collection, const QString& _title )
+    auto lineChartSetter = [ & ]( const auto& _collection, const char* _title )
     {
         for ( size_t i = 0; i < _collection.size(); ++i )
         {
           *series << QPointF( radiusCollection[ i ], _collection[ i ] );
-           series->setName( _title );
+           series->setName( QString::fromLocal8Bit( _title ) );
         }
     };
+
+    QTextCodec::setCodecForLocale( QTextCodec::codecForName( "Windows-1251") );
 
     lineChartSetter( nmCollection,"прямая задача");
 
