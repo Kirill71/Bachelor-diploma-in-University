@@ -27,7 +27,8 @@ MainWindow::~MainWindow()
 
 /*---------------------------------------------------------------------------*/
 
-void MainWindow::on_openFile_clicked()
+void
+MainWindow::on_openFile_clicked()
 {
    m_statFilePath = QFileDialog::getOpenFileName(
             this
@@ -38,7 +39,7 @@ void MainWindow::on_openFile_clicked()
 
    ui->fileViewLineEdit->setText( m_statFilePath );
 
-}
+} // MainWindow::on_openFile_clicked
 
 /*---------------------------------------------------------------------------*/
 
@@ -58,9 +59,9 @@ MainWindow::fillSetupData()
     insert( DemfRatio, ui->demfRatioSpinBox->value() );
     insert( Epsilon, ui->epsilonSpinBox->value() );
 
-    auto const & freqSoundingList
+    auto const& freqSoundingList
           = ui->FreqSoundingTextEdit->toPlainText().split(",");
-    auto const & regularAlfaValuesList
+    auto const& regularAlfaValuesList
           = ui->regularAlfaValuesTextEdit->toPlainText().split(",");
 
     int index = ui->indexAlfaSpinBox->value();
@@ -86,8 +87,10 @@ MainWindow::fillSetupData()
     }
 
     insert(SoundingFrequensies, ui->FreqSoundingTextEdit->toPlainText() );
-}
 
+} //MainWindow::fillSetupData
+
+/*---------------------------------------------------------------------------*/
 
 void
 MainWindow::getMessageBox(const QString& _text ) const noexcept
@@ -96,7 +99,9 @@ MainWindow::getMessageBox(const QString& _text ) const noexcept
     msgBox.setText( _text );
     msgBox.exec();
 
-}
+} // MainWindow::getMessageBox
+
+/*---------------------------------------------------------------------------*/
 
 void
 MainWindow::on_visualizeButton_clicked()
@@ -125,4 +130,7 @@ MainWindow::on_visualizeButton_clicked()
     chartView->setRenderHint( QPainter::Antialiasing );
     ui->tabLayout->addWidget(histohramView );
     ui->tabLayout->addWidget( chartView );
-}
+
+} // MainWindow::on_visualizeButton_clicked
+
+/*---------------------------------------------------------------------------*/

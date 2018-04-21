@@ -1,11 +1,12 @@
 #include "Headers/Controllers/ChartController.hpp"
 #include "Headers/Views/MainWindow.hpp"
+#include "Headers/Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 
 ChartController::ChartController(
         MainWindow* _window
-    ,   const SetupCollPtr& _setup
+    ,   const Defines::SetupCollPtr& _setup
     ,   const std::string& _inputStatFilePath
 )
     :   m_window( _window )

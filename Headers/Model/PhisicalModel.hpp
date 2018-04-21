@@ -21,6 +21,7 @@
 #include "Headers/ph/ph.hpp"
 #include "Headers/Model/Gauss.hpp"
 #include "Headers/Utils/Log.hpp"
+#include "Headers/Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -31,19 +32,11 @@ class PhisicalModel
 
     using LogImplPtr = std::unique_ptr< Log >;
 
-    using Table = std::vector<
-            std::pair<
-                    double
-                  , double
-             >
-    >;
-
     using Vector = Gauss::Vector;
-
 
 /*---------------------------------------------------------------------------*/
 
-    const double averageSpeedSoundInSeaWater = 1.522E5;
+    const double averageSpeedSoundInSeaWater { 1.522E5 };
 
 /*---------------------------------------------------------------------------*/
 
@@ -51,14 +44,7 @@ public:
 
 /*---------------------------------------------------------------------------*/
 
-    using ChartData = std::tuple<
-            Table
-          , Gauss::Vector
-          , Gauss::Vector
-          , Gauss::Vector
-    >;
-
-    using SetupCollImpl = std::map< const int, QString >;
+    using SetupCollImpl = std::map< const size_t, QString >;
 
     using SetupCollImplPtr = std::unique_ptr< SetupCollImpl >;
 
@@ -83,7 +69,7 @@ public:
 
 /*---------------------------------------------------------------------------*/
 
-   ChartData calculatePhisicalModel();
+   Defines::ChartData calculatePhisicalModel();
 
 /*---------------------------------------------------------------------------*/
 

@@ -19,10 +19,6 @@ class Builder
 public:
 /*---------------------------------------------------------------------------*/
 
-    const unsigned int SINGLE_THREAD_MODE { 1 };
-
-/*---------------------------------------------------------------------------*/
-
     virtual ~Builder() noexcept {}
 
     virtual void build() = 0;

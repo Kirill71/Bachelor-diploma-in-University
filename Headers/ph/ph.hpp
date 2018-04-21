@@ -34,7 +34,6 @@
 #include<boost/noncopyable.hpp>
 #include<boost/lexical_cast.hpp>
 
-
 // Qt Headers
 #include <QChart>
 #include <QtCharts/QBarSet>

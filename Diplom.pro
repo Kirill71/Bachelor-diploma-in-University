@@ -40,7 +40,8 @@ Sources/ph/ph.cpp \
 Sources/Utils/Log.cpp \
 Sources/Views/ChartBuilder.cpp \
 Sources/Views/ChartBuilderDirector.cpp \
-Sources/Controllers/ChartController.cpp
+Sources/Controllers/ChartController.cpp \
+    Sources/Utils/Utils.cpp
 
 HEADERS += \
 Headers/Views/MainWindow.hpp \
@@ -55,7 +56,9 @@ Headers/Views/Builder.hpp \
 Headers/Views/CharBuilderDirector.hpp \
 Headers/Controllers/ChartController.hpp \
     Headers/Views/MainWindow.hpp \
-    Headers/Model/Setup.hpp
+    Headers/Model/Setup.hpp \
+    Headers/Utils/Utils.hpp \
+    Headers/Utils/Defines.hpp
 
 FORMS += \
 mainwindow.ui

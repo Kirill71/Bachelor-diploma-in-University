@@ -43,16 +43,6 @@ class MainWindow : public QWidget
 
   using ChartControllerImplPtr = std::unique_ptr< ChartController >;
 
-  using SetupValuesCollImpl = std::map< const int, QString >;
-
-/*---------------------------------------------------------------------------*/
-
-public:
-
-/*---------------------------------------------------------------------------*/
-
-  using SetupValuesCollImplPtr = std:: unique_ptr < SetupValuesCollImpl >;
-
 /*---------------------------------------------------------------------------*/
 
 public:
@@ -83,7 +73,7 @@ private:
 
   std::unique_ptr< ChartController >
   makeChartControllerImpl(
-        const SetupValuesCollImplPtr& _setup
+        const Defines::SetupCollPtr& _setup
     ,   const std::string& _inputStatFilePath
   ) const noexcept;
 
@@ -103,7 +93,7 @@ private:
 
   ChartControllerImplPtr m_controller;
 
-  SetupValuesCollImplPtr m_setupColl;
+  Defines::SetupCollPtr m_setupColl;
 
   QString m_statFilePath;
 
@@ -115,7 +105,7 @@ private:
 
 inline std::unique_ptr< ChartController >
 MainWindow::makeChartControllerImpl(
-      const SetupValuesCollImplPtr& _setup
+      const Defines::SetupCollPtr& _setup
     , const std::string& _inputStatFilePath
  ) const noexcept
 {
@@ -133,7 +123,7 @@ MainWindow::makeChartControllerImpl(
 inline auto
 MainWindow::makeSetupCollectionImpl() const noexcept
 {
-    return std::make_unique< SetupValuesCollImpl >();
+    return std::make_unique< Defines::SetupValuesCollImpl >();
 
 } // MainWindow::makeSetupCollectionImpl
 

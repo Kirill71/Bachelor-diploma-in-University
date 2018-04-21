@@ -4,7 +4,8 @@
 /*---------------------------------------------------------------------------*/
 
 #include "Headers/Views/Builder.hpp"
-#include "Headers/Model/PhisicalModel.hpp" // delete
+#include "Headers/Model/PhisicalModel.hpp"
+#include "Headers/Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -19,7 +20,7 @@ public:
 
     explicit ChartBuilder( PhisicalModel& _model );
 
-    ~ChartBuilder() = default;
+    ~ChartBuilder() override = default;
 
 /*---------------------------------------------------------------------------*/
 
@@ -39,9 +40,9 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-    void buildHistohramChart( const PhisicalModel::ChartData& _data );
+    void buildHistohramChart( const Defines::ChartData& _data );
 
-    void buildLineChart( const PhisicalModel::ChartData& _data );
+    void buildLineChart( const Defines::ChartData& _data );
 
 /*---------------------------------------------------------------------------*/
 

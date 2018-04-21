@@ -21,7 +21,7 @@ PhisicalModel::~PhisicalModel()
 
 /*---------------------------------------------------------------------------*/
 
-PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
+Defines::ChartData PhisicalModel::calculatePhisicalModel()
 {
     using VectorInt = std::vector < int >;
 
@@ -55,7 +55,7 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     err = m_setup[Epsilon].toDouble();
 
     // in the new method
-    Table table;
+    Defines::Table table;
     while( !log( Log::FileType::Stat ).eof() )
     {
         double first, second;
@@ -98,14 +98,20 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     auto str =  m_setup[ SoundingFrequensies ];
     for ( size_t i = 0; i < L; ++i)
     {
-        frecExp[i] =  m_setup[ SoundingFrequensies ].split(",")[i].toDouble();       //  частоты исследования
+        frecExp[i]
+               = m_setup[ SoundingFrequensies ]
+                    .split( "," )[ static_cast<int>( i ) ].toDouble();
+
         log() << frecExp[i] << std::endl;
     }
 
     log() << "   Регуляризирующие значения альфа\n" << std::endl;
     for (size_t i = 0; i < Itr; ++i)
     {
-        alphaVector[i] = m_setup[ RegularAlfaValue ].split(",")[i].toDouble();
+        alphaVector[ i ]
+               = m_setup[ RegularAlfaValue ]
+                    .split(",")[ static_cast<int>( i ) ].toDouble();
+
         log() << alphaVector[i] << std::endl;
     }
     radiusNorm = radiusBubbleMin / radiusBubbleMax;
@@ -171,27 +177,9 @@ PhisicalModel::ChartData PhisicalModel::calculatePhisicalModel()
     }
 
     double n_0 = 120.0; // не понятно название этой переменной
-    double summ = 0.0;
-       std::for_each(
-            table.cbegin()
-         ,  table.cend()
-         ,  [ &summ ]( auto it )
-            {
-                summ += it.second;
-            }
-      );
-    demfRatio = 2.7; /* ( 1 / table.size() ) * summ; // 1/n*summ( y[i])*/
+    demfRatio = 2.7;
 
-    summ = 0.0;
-    std::for_each(
-        table.cbegin()
-     ,  table.cend()
-     ,  [ &summ, demfRatio ]( auto it )
-        {
-            summ += pow( it.second - demfRatio, 2 );
-        }
-    );
-    a = 15.0; /*sqrt( (1 / table.size() - 1) * summ );*/
+    a = 15.0;
 
     for ( size_t i = 0; i<N; ++i )
     {

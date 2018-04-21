@@ -99,6 +99,7 @@ Log::log( FileType _type )
 
         case FileType::Chart:
             return *m_chartFile;
+
     }
 
 } // Log::log
