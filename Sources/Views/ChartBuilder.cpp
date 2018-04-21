@@ -90,7 +90,9 @@ ChartBuilder::buildLineChart( const Defines::ChartData& _data )
         }
     };
 
+#ifdef _WIN32
     QTextCodec::setCodecForLocale( QTextCodec::codecForName( "Windows-1251") );
+#endif
 
     lineChartSetter( nmCollection,"прямая задача");
 
