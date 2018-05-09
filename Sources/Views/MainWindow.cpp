@@ -1,8 +1,9 @@
 #include "Headers/Views/MainWindow.hpp"
-
 #include "Headers/Views/CharBuilderDirector.hpp"
+#include "Headers/Views/NumbersDelegate.hpp"
 
 #include "ui_mainwindow.h"
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -14,6 +15,11 @@ MainWindow::MainWindow(
   , m_setupColl( makeSetupCollectionImpl() )
 {
     ui->setupUi( this );
+
+    ui->staticTable->horizontalHeader()
+            ->setSectionResizeMode( QHeaderView::Stretch );
+
+    ui->staticTable->setItemDelegate( new NumbersDelegate );
 
 } // MainWindow::MainWindow
 
@@ -34,12 +40,40 @@ MainWindow::on_openFile_clicked()
             this
         ,   tr("Открыть файл статистики")
         ,   QDir::currentPath()
-        ,   tr("All Files (*.*)" )
+        ,   tr("All Files (*.stat)" )
    );
 
    ui->fileViewLineEdit->setText( m_statFilePath );
 
+   drawTable();
+
 } // MainWindow::on_openFile_clicked
+
+/*---------------------------------------------------------------------------*/
+
+void
+MainWindow::drawTable() const
+{
+    std::ifstream statFile( m_statFilePath.toLocal8Bit().constData() );
+
+    if ( !statFile.is_open() )
+        std::logic_error(" Трощило ты заебал, файл сука cоздай/выбери !!!");
+
+
+    while( !statFile.eof() )
+    {
+      std::string first, second;
+      statFile >> first >> second;
+
+      ui->staticTable->insertRow( ui->staticTable->rowCount() );
+      ui->staticTable->setItem(ui->staticTable->rowCount()-1, 0, new QTableWidgetItem( first.c_str() ) );
+      ui->staticTable->setItem( ui->staticTable->rowCount()-1, 1, new QTableWidgetItem( second.c_str() ) );
+    };
+
+    ui->staticTable->removeRow( ui->staticTable->rowCount()-1 );
+
+    statFile.close();
+}
 
 /*---------------------------------------------------------------------------*/
 

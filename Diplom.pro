@@ -41,7 +41,8 @@ Sources/Utils/Log.cpp \
 Sources/Views/ChartBuilder.cpp \
 Sources/Views/ChartBuilderDirector.cpp \
 Sources/Controllers/ChartController.cpp \
-    Sources/Utils/Utils.cpp
+    Sources/Utils/Utils.cpp \
+    Sources/Views/NumbersDelegate.cpp
 
 HEADERS += \
 Headers/Views/MainWindow.hpp \
@@ -58,7 +59,8 @@ Headers/Controllers/ChartController.hpp \
     Headers/Views/MainWindow.hpp \
     Headers/Model/Setup.hpp \
     Headers/Utils/Utils.hpp \
-    Headers/Utils/Defines.hpp
+    Headers/Utils/Defines.hpp \
+    Headers/Views/NumbersDelegate.hpp
 
 FORMS += \
 mainwindow.ui
