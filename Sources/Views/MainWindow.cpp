@@ -159,10 +159,20 @@ MainWindow::on_visualizeButton_clicked()
 
     auto histohramView = new QChartView( director.getHistogramChart() );
     auto chartView = new QChartView( director.getLineChart() );
+    auto  echoSignalsView = new QChartView( director.getEchoSignalsChart() );
+    auto discrepencyView = new QChartView( director.getDiscrepencyChart() );
 
     histohramView->setRenderHint( QPainter::Antialiasing );
     chartView->setRenderHint( QPainter::Antialiasing );
-    ui->tabLayout->addWidget(histohramView );
+    echoSignalsView->setRenderHint( QPainter::Antialiasing );
+
+    ui->horizontalLayout_19->addWidget( histohramView );
+
+    QLayout* vertical = new QVBoxLayout( this );
+    vertical->addWidget( echoSignalsView );
+    vertical->addWidget( discrepencyView );
+
+    ui->tabLayout->addLayout( vertical );
     ui->tabLayout->addWidget( chartView );
 
 } // MainWindow::on_visualizeButton_clicked

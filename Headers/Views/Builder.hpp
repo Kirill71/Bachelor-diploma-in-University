@@ -27,6 +27,10 @@ public:
 
     virtual QChart* getLineChart() const = 0;
 
+    virtual QChart* geEchoSignalsChart() const = 0;
+
+    virtual QChart* getDiscrepencyChart() const = 0;
+
 /*---------------------------------------------------------------------------*/
 
 }; // class Builder

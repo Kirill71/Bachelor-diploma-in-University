@@ -7,13 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>788</width>
-    <height>606</height>
+    <height>632</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>IPS</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_6">
+  <layout class="QHBoxLayout" name="horizontalLayout_18">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -23,348 +23,346 @@
       <attribute name="title">
        <string>Настройка</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
+      <layout class="QHBoxLayout" name="horizontalLayout_19">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <widget class="QPushButton" name="openFile">
-           <property name="text">
-            <string>Выбрать файл статистики</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="fileViewLineEdit">
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout">
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout">
-                 <item>
-                  <widget class="QLabel" name="IntegralSeparateLabel">
-                   <property name="text">
-                    <string>Интегральное разбиение:</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="integralSeparateSpinBox">
-                   <property name="minimum">
-                    <number>0</number>
-                   </property>
-                   <property name="maximum">
-                    <number>1000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1000</number>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_3">
-                 <item>
-                  <widget class="QLabel" name="systemSizeLabel">
-                   <property name="text">
-                    <string>Размерность системы :</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="systemSizeSpinBox">
-                   <property name="minimum">
-                    <number>2</number>
-                   </property>
-                   <property name="maximum">
-                    <number>100</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                 <item>
-                  <widget class="QLabel" name="radiusMinLabel">
-                   <property name="text">
-                    <string>Min радиус пузырька(м):</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDoubleSpinBox" name="radiusMinSpinBox">
-                   <property name="decimals">
-                    <number>5</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>20.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.500000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>0.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <item>
-                  <widget class="QLabel" name="radiusMaxLabel">
-                   <property name="text">
-                    <string>Max радиус пузырька(м):</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDoubleSpinBox" name="radiusMaxSpinBox">
-                   <property name="decimals">
-                    <number>5</number>
-                   </property>
-                   <property name="minimum">
-                    <double>1.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>20.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.500000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>1.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_7">
-                 <item>
-                  <widget class="QLabel" name="depthLabel">
-                   <property name="text">
-                    <string>Глубина добычи(м):            </string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDoubleSpinBox" name="depthSpinBox">
-                   <property name="decimals">
-                    <number>3</number>
-                   </property>
-                   <property name="minimum">
-                    <double>1.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>12000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>1.000000000000000</double>
-                   </property>
-                   <property name="value">
-                    <double>100.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_2">
-                 <item>
-                  <widget class="QLabel" name="demfRatioLabel">
-                   <property name="text">
-                    <string>Коэффициент демфирования :</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDoubleSpinBox" name="demfRatioSpinBox">
-                   <property name="decimals">
-                    <number>5</number>
-                   </property>
-                   <property name="minimum">
-                    <double>1.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>20000.000000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_9">
-                 <item>
-                  <widget class="QLabel" name="alfaIndexLabel">
-                   <property name="text">
-                    <string>Номер альфа:</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="indexAlfaSpinBox">
-                   <property name="minimum">
-                    <number>1</number>
-                   </property>
-                   <property name="maximum">
-                    <number>100</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="value">
-                    <number>2</number>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_6">
-                 <item>
-                  <widget class="QLabel" name="epsilonLabel">
-                   <property name="text">
-                    <string>Точность вычислений:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QDoubleSpinBox" name="epsilonSpinBox">
-                   <property name="decimals">
-                    <number>5</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000010000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>0.100000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.000010000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <item>
-                <widget class="QLabel" name="alfaNumber_2">
-                 <property name="text">
-                  <string>Частоты зондирования :</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QTextEdit" name="FreqSoundingTextEdit"/>
-               </item>
-              </layout>
-             </item>
-            </layout>
+            <widget class="QPushButton" name="openFile">
+             <property name="text">
+              <string>Выбрать файл статистики</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <widget class="QLabel" name="RegularAlfaValue">
-               <property name="text">
-                <string>Альфа-значения:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QTextEdit" name="regularAlfaValuesTextEdit"/>
-             </item>
-            </layout>
+            <widget class="QLineEdit" name="fileViewLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QTableWidget" name="staticTable">
-           <property name="columnCount">
-            <number>2</number>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="baseHorizontalLayout">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_2">
+                   <item>
+                    <widget class="QLabel" name="IntegralSeparateLabel">
+                     <property name="text">
+                      <string>Интегральное разбиение:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSpinBox" name="integralSeparateSpinBox">
+                     <property name="minimum">
+                      <number>0</number>
+                     </property>
+                     <property name="maximum">
+                      <number>1000000</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1000</number>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <item>
+                    <widget class="QLabel" name="systemSizeLabel">
+                     <property name="text">
+                      <string>Размерность системы :</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSpinBox" name="systemSizeSpinBox">
+                     <property name="minimum">
+                      <number>2</number>
+                     </property>
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_4">
+                   <item>
+                    <widget class="QLabel" name="radiusMinLabel">
+                     <property name="text">
+                      <string>Min радиус пузырька(мм):</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="radiusMinSpinBox">
+                     <property name="decimals">
+                      <number>5</number>
+                     </property>
+                     <property name="minimum">
+                      <double>0.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>20.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.500000000000000</double>
+                     </property>
+                     <property name="value">
+                      <double>0.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="radiusMaxLabel">
+                     <property name="text">
+                      <string>Max радиус пузырька(мм):</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="radiusMaxSpinBox">
+                     <property name="decimals">
+                      <number>5</number>
+                     </property>
+                     <property name="minimum">
+                      <double>1.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>20.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.500000000000000</double>
+                     </property>
+                     <property name="value">
+                      <double>1.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <item>
+                    <widget class="QLabel" name="depthLabel">
+                     <property name="text">
+                      <string>Глубина добычи(м):</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="depthSpinBox">
+                     <property name="decimals">
+                      <number>3</number>
+                     </property>
+                     <property name="minimum">
+                      <double>1.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>12000.000000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>1.000000000000000</double>
+                     </property>
+                     <property name="value">
+                      <double>100.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout">
+                   <item>
+                    <widget class="QLabel" name="demfRatioLabel">
+                     <property name="text">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Коэффициент демфирования :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="demfRatioSpinBox">
+                     <property name="decimals">
+                      <number>5</number>
+                     </property>
+                     <property name="minimum">
+                      <double>1.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>20000.000000000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <widget class="QLabel" name="alfaIndexLabel">
+                     <property name="text">
+                      <string>Номер альфа:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSpinBox" name="indexAlfaSpinBox">
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="singleStep">
+                      <number>1</number>
+                     </property>
+                     <property name="value">
+                      <number>2</number>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                   <item>
+                    <widget class="QLabel" name="epsilonLabel">
+                     <property name="text">
+                      <string>Точность вычислений:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QDoubleSpinBox" name="epsilonSpinBox">
+                     <property name="decimals">
+                      <number>5</number>
+                     </property>
+                     <property name="minimum">
+                      <double>0.000010000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>0.100000000000000</double>
+                     </property>
+                     <property name="singleStep">
+                      <double>0.000010000000000</double>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout">
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_2">
+                   <item>
+                    <widget class="QLabel" name="alfaNumber_2">
+                     <property name="text">
+                      <string>Частоты зондирования :</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTextEdit" name="FreqSoundingTextEdit"/>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <layout class="QVBoxLayout" name="verticalLayout_4">
+                   <item>
+                    <widget class="QLabel" name="RegularAlfaValue">
+                     <property name="text">
+                      <string>Альфа-значения:</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTextEdit" name="regularAlfaValuesTextEdit"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="1">
+            <widget class="QTableWidget" name="staticTable">
+             <property name="columnCount">
+              <number>2</number>
+             </property>
+             <column>
+              <property name="text">
+               <string>N[i]</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Radius[i]</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="visualizeButton">
+           <property name="text">
+            <string>Визуализировать</string>
            </property>
-           <column>
-            <property name="text">
-             <string>N[i]</string>
-            </property>
-           </column>
-           <column>
-            <property name="text">
-             <string>Radius[i]</string>
-            </property>
-           </column>
           </widget>
          </item>
         </layout>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>745</width>
-           <height>17</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="visualizeButton">
-         <property name="text">
-          <string>Визуализировать</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>

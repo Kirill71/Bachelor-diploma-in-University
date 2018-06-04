@@ -34,6 +34,10 @@ public:
 
     QChart* getLineChart() const override;
 
+    QChart* geEchoSignalsChart() const override;
+
+    QChart* getDiscrepencyChart() const override;
+
 /*---------------------------------------------------------------------------*/
 
 private:
@@ -44,6 +48,10 @@ private:
 
     void buildLineChart( const Defines::ChartData& _data );
 
+    void buildEchoSignalsChart( const Defines::ChartData& _data );
+
+    void buildDiscrepencyChart( const Defines::ChartData& _data );
+
 /*---------------------------------------------------------------------------*/
 
 private:
@@ -53,6 +61,10 @@ private:
     QChart* m_histohramChart;
 
     QChart* m_lineChart;
+
+    QChart* m_echoSignalsChart;
+
+    QChart* m_discrepancyChart;
 
     PhisicalModel& m_model;
 

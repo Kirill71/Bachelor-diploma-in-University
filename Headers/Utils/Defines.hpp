@@ -26,6 +26,10 @@ namespace Defines {
       , Gauss::Vector
       , Gauss::Vector
       , Gauss::Vector
+      , Gauss::Vector
+      , Gauss::Vector
+      , Gauss::Vector
+      , Gauss::Vector
     >;
 
 /*---------------------------------------------------------------------------*/

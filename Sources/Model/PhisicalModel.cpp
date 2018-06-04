@@ -21,14 +21,14 @@ PhisicalModel::~PhisicalModel()
 
 /*---------------------------------------------------------------------------*/
 
-Defines::ChartData PhisicalModel::calculatePhisicalModel()
+Defines::ChartData
+PhisicalModel::calculatePhisicalModel()
 {
     using VectorInt = std::vector < int >;
 
     auto log = [ this ]( Log::FileType _type = Log::FileType::Scattering )-> auto&
     {
         return m_log->log( _type );
-
     };
 
     size_t N, M, L, Itr;            // размерность массивов
@@ -84,6 +84,7 @@ Defines::ChartData PhisicalModel::calculatePhisicalModel()
     Vector Nm_s( M );
     VectorInt INm( N );
     Vector n_r( N );
+    Matrix XA( Itr , M );
 
     log() << "N=" << N << " M=" << M << std::endl;
     log() << "R_min=" << radiusBubbleMin << "м" << " R_max=" << radiusBubbleMax << "м" << std::endl;
@@ -222,20 +223,18 @@ Defines::ChartData PhisicalModel::calculatePhisicalModel()
         }
 
         for ( size_t k = 0; k < L; ++k )
-        {
             freeMembers[j] += mv_f[k] * integrationMatrix[k][j];
-        }
     }
 
-    double D_min_alph = 1.0; // не понятно название этой переменной
-
+    double alpha_ = 0.0;
     for ( size_t iter = 0; iter < Itr; ++iter ) // Iteration
     {
         alpha = alphaVector[iter];
         log() << " Alpha : = " << alpha << std::endl;
 
          for ( size_t i = 0; i < M; ++i )
-            systemMatrix[i][i] += alpha;
+            systemMatrix[i][i] += alpha-alpha_;
+         alpha_ = alpha;
 
          log() << "\n Исходная матрица [A]: " << std::endl;
 
@@ -299,22 +298,41 @@ Defines::ChartData PhisicalModel::calculatePhisicalModel()
 
         delta_al[iter] = SCH / SZ;
 
-        if ( delta_al[ iter ] <= D_min_alph )
-        {
-            log( Log::FileType::Chart ) << "\n Alpha = " << alpha << " Delta-alpha = " << delta_al[iter] << "\n" << std::endl;
-            for ( size_t k = 0; k < N; ++k )
-            {
-                for ( size_t i = 0; i < M; ++i )
-                    n_r[k] += Nm_s[i] * basisFuncMatrix[i][k];
-            }
-        }
+        for ( size_t i = 0; i < M; ++i )
+          XA[ iter ][ i ] = X[ i ];
+
+    } // End Iterasion for alpha
+
+    double D_min = *std::min_element( delta_al.cbegin(), delta_al.cend());
+    double D_max = *std::max_element( delta_al.cbegin(), delta_al.cend());
+
+    log() << " Min distance: " << D_min << " Max distance: " << D_max << std::endl;
+
+    auto minDistance = static_cast< unsigned long >( std::distance( delta_al.cbegin(), std::min_element( delta_al.cbegin(), delta_al.cend() ) ) );
+
+    log() << " Alpha = " << alphaVector[ minDistance ] << " Min distance: " << minDistance << std::endl;
+
+    log( Log::FileType::Chart ) << "\n Alpha = " << alphaVector[ minDistance ] << " Delta-alpha = " << delta_al[ minDistance ] << "\n" << std::endl;
+    for ( size_t k = 0; k < N; ++k )
+    {
+        for ( size_t i = 0; i < M; ++i )
+            n_r[k] += XA[minDistance][i] * basisFuncMatrix[i][k];
     }
 
-  for ( size_t i = 0; i<N; ++i)
-    log( Log::FileType::Chart ) << radiusCollection[ i ] << " " << n_r[ i ] << std::endl;
+    for ( size_t i = 0; i<N; ++i)
+        log( Log::FileType::Chart ) << radiusCollection[ i ] << " " << n_r[ i ] << std::endl;
 
-  return { table, radiusCollection, Nm, n_r };
+    return { table, radiusCollection, Nm, n_r, mv_f, frecExp, delta_al, alphaVector };
 
 } // PhisicalModel::calculatePhisicalModel
 
-/*---------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+PhisicalModel::SetupCollImpl&
+PhisicalModel::getSetupData() const
+{
+    return m_setup;
+
+} // PhisicalModel::getSetupData()
+
+/*----------------------------------------------------------------------------*/

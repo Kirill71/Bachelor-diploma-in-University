@@ -24,9 +24,28 @@ ChartBuilderDirector::getHistogramChart() const
 QChart*
 ChartBuilderDirector::getLineChart() const
 {
-    return  m_builder->getLineChart();
+    return m_builder->getLineChart();
 
 } // ChartBuilderDirector::getLineChart
+
+/*---------------------------------------------------------------------------*/
+
+QChart*
+ChartBuilderDirector::getEchoSignalsChart() const
+{
+    return m_builder->geEchoSignalsChart();
+
+}
+
+/*---------------------------------------------------------------------------*/
+
+QChart*
+ChartBuilderDirector::getDiscrepencyChart() const
+{
+    return m_builder->getDiscrepencyChart();
+
+}
+
 
 /*---------------------------------------------------------------------------*/
 

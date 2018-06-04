@@ -43,6 +43,8 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
+#include <QtCharts/QCategoryAxis>
+#include <QtCharts/QBarCategoryAxis>
 #include <QtCharts/QLegend>
 #include <QList>
 #include <QUrl>

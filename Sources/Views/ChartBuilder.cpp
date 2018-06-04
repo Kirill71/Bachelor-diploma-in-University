@@ -7,6 +7,8 @@
 ChartBuilder::ChartBuilder( PhisicalModel& _model  )
     :   m_histohramChart( new QChart() )
     ,   m_lineChart( new QChart() )
+    ,   m_echoSignalsChart( new QChart() )
+    ,   m_discrepancyChart( new QChart() )
     ,   m_model( _model )
 {
 } // ChartBuilder::ChartBuilder
@@ -27,6 +29,18 @@ ChartBuilder::build()
     Utils::makeThread( [ & ]()
         {
             buildLineChart( data );
+        }
+    );
+
+    Utils::makeThread( [ & ]()
+        {
+            buildEchoSignalsChart( data );
+        }
+    );
+
+    Utils::makeThread( [ & ]()
+        {
+            buildDiscrepencyChart( data );
         }
     );
 
@@ -106,26 +120,98 @@ ChartBuilder::buildLineChart( const Defines::ChartData& _data )
     m_lineChart->setAnimationOptions( QChart::SeriesAnimations );
     m_lineChart->createDefaultAxes();
     m_lineChart->axisX()->setMin( 0.0 );
-    m_lineChart->axisX()->setMax(*std::max_element( radiusCollection.begin(), radiusCollection.end() ) );
     m_lineChart->axisY()->setMin( 0.0 );
-    m_lineChart->axisY()->setMax(
-        std::max(
-                *std::max_element(
-                        nmCollection.begin()
-                    ,   nmCollection.end()
-                )
-        ,       *std::max_element(
-                        nrCollection.begin()
-                    ,   nrCollection.end()
-                )
-        ) + 0.015
-    );
 
     m_lineChart->legend()->setVisible( true );
     m_lineChart->legend()->setAlignment( Qt::AlignBottom );
     m_lineChart->legend()->attachToChart();
 
 } // ChartBuilder::buildLineChart
+
+/*---------------------------------------------------------------------------*/
+
+void
+ChartBuilder::buildEchoSignalsChart( const Defines::ChartData& _data )
+{
+    auto mv_f = std::get< 4 >( _data );
+    auto freqExp = std::get< 5 >( _data );
+
+    QLineSeries* series = new QLineSeries();
+    QStringList axisYSeries;
+
+#ifdef _WIN32
+    QTextCodec::setCodecForLocale( QTextCodec::codecForName( "Windows-1251") );
+#endif
+
+    const size_t size = mv_f.size();
+    for ( size_t i = 0; i < size; ++i )
+    {
+        *series << QPointF( freqExp[ i ], mv_f[ i ] );
+        series->setName( QString::fromLocal8Bit( "Анализ эхо - сигналов." ) );
+        axisYSeries.push_back( std::to_string( mv_f[ size - i - 1 ] ).c_str() );
+    }
+
+    m_echoSignalsChart->addSeries( series );
+    auto axisX = new QBarCategoryAxis();
+    auto axisY = new QBarCategoryAxis();
+
+    auto& settings = m_model.getSetupData();
+    axisX->append( settings[ SoundingFrequensies ].split( "," ) );
+    axisY->append( axisYSeries );
+    m_echoSignalsChart->createDefaultAxes();
+    m_echoSignalsChart->setAxisX( axisX );
+    m_echoSignalsChart->setAxisY( axisY );
+
+    m_echoSignalsChart->setAnimationOptions( QChart::SeriesAnimations );
+
+    m_echoSignalsChart->legend()->setVisible( true );
+    m_echoSignalsChart->legend()->setAlignment( Qt::AlignBottom );
+    m_echoSignalsChart->legend()->attachToChart();
+
+} // ChartBuilder::buildEchoSignalsChart
+
+/*---------------------------------------------------------------------------*/
+
+
+void
+ChartBuilder::buildDiscrepencyChart( const Defines::ChartData& _data )
+{
+    auto delta_al = std::get< 6 >( _data );
+    auto alphaVector = std::get< 7 >( _data );
+
+    QLineSeries* series = new QLineSeries();
+    QStringList axisYSeries;
+
+#ifdef _WIN32
+    QTextCodec::setCodecForLocale( QTextCodec::codecForName( "Windows-1251") );
+#endif
+
+    const size_t size = delta_al.size();
+    for ( size_t i = 0; i < size; ++i )
+    {
+        *series << QPointF( alphaVector[ i ], delta_al[ i ] );
+        series->setName( QString::fromLocal8Bit( "Невязка данных по альфа." ) );
+        axisYSeries.push_back( std::to_string( delta_al[ size - i - 1 ] ).c_str() );
+    }
+
+    m_discrepancyChart->addSeries( series );
+    auto axisX = new QBarCategoryAxis();
+    auto axisY = new QBarCategoryAxis();
+
+    auto& settings = m_model.getSetupData();
+    axisX->append( settings[ RegularAlfaValue ].split( "," ) );
+    axisY->append( axisYSeries );
+    m_discrepancyChart->createDefaultAxes();
+    m_discrepancyChart->setAxisX( axisX );
+    m_discrepancyChart->setAxisY( axisY );
+
+    m_discrepancyChart->setAnimationOptions( QChart::SeriesAnimations );
+
+    m_discrepancyChart->legend()->setVisible( true );
+    m_discrepancyChart->legend()->setAlignment( Qt::AlignBottom );
+    m_discrepancyChart->legend()->attachToChart();
+
+} // ChartBuilder::buildDescrepencyChart
 
 /*---------------------------------------------------------------------------*/
 
@@ -146,3 +232,25 @@ ChartBuilder::getLineChart() const
 } // ChartBuilder::getLineChart
 
 /*---------------------------------------------------------------------------*/
+
+QChart*
+ChartBuilder::geEchoSignalsChart() const
+{
+    return m_echoSignalsChart;
+
+} // ChartBuilder::geEchoSignalsChart
+
+
+/*---------------------------------------------------------------------------*/
+
+
+QChart*
+ChartBuilder::getDiscrepencyChart() const
+{
+    return m_discrepancyChart;
+
+} // ChartBuilder::getDescrepencyChart
+
+
+/*---------------------------------------------------------------------------*/
+

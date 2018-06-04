@@ -27,6 +27,10 @@ public:
 
     QChart* getLineChart() const;
 
+    QChart* getEchoSignalsChart() const;
+
+    QChart* getDiscrepencyChart() const;
+
 /*---------------------------------------------------------------------------*/
 
 private:

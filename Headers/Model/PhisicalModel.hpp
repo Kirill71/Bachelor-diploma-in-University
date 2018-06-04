@@ -71,6 +71,8 @@ public:
 
    Defines::ChartData calculatePhisicalModel();
 
+   SetupCollImpl& getSetupData() const;
+
 /*---------------------------------------------------------------------------*/
 
 private:
