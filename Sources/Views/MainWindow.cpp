@@ -57,7 +57,7 @@ MainWindow::drawTable() const
     std::ifstream statFile( m_statFilePath.toLocal8Bit().constData() );
 
     if ( !statFile.is_open() )
-        std::logic_error(" Трощило ты заебал, файл сука cоздай/выбери !!!");
+        std::logic_error(" Файл статистики не был открыт, возможно, он не выбран!!!");
 
 
     while( !statFile.eof() )
