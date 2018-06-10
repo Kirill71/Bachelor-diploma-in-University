@@ -6,16 +6,15 @@
 ChartBuilderDirector::ChartBuilderDirector( PhisicalModel& _model )
     :   m_builder( makeBuilderImplPtr( _model ) )
 {
-    construct();
-
 } // ChartBuilderDirector::ChartBuilderDirector
 
 /*---------------------------------------------------------------------------*/
 
 QChart*
-ChartBuilderDirector::getHistogramChart() const
+ChartBuilderDirector::getHistogramChart( const Defines::Table& _table ) const
 {
-    return m_builder->getHistohramChart();
+
+    return m_builder->getHistohramChart( _table );
 
 } // ChartBuilderDirector::getHistogramChart
 

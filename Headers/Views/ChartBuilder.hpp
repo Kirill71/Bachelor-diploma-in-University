@@ -5,7 +5,6 @@
 
 #include "Headers/Views/Builder.hpp"
 #include "Headers/Model/PhisicalModel.hpp"
-#include "Headers/Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -30,7 +29,7 @@ public:
 
     void build() override;
 
-    QChart* getHistohramChart() const override;
+    QChart* getHistohramChart( const Defines::Table& _table )  override;
 
     QChart* getLineChart() const override;
 
@@ -38,13 +37,13 @@ public:
 
     QChart* getDiscrepencyChart() const override;
 
+    void buildHistohramChart( const Defines::Table& _table );
+
 /*---------------------------------------------------------------------------*/
 
 private:
 
 /*---------------------------------------------------------------------------*/
-
-    void buildHistohramChart( const Defines::ChartData& _data );
 
     void buildLineChart( const Defines::ChartData& _data );
 

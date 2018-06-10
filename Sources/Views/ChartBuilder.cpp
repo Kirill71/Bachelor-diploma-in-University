@@ -22,12 +22,6 @@ ChartBuilder::build()
 
     Utils::makeThread( [ & ]()
         {
-            buildHistohramChart( data );
-        }
-    );
-
-    Utils::makeThread( [ & ]()
-        {
             buildLineChart( data );
         }
     );
@@ -49,12 +43,12 @@ ChartBuilder::build()
 /*---------------------------------------------------------------------------*/
 
 void
-ChartBuilder::buildHistohramChart( const Defines::ChartData& _data )
+ChartBuilder::buildHistohramChart( const Defines::Table& _table )
 {
-   auto table = std::get< 0 >( _data );
+
    std::vector< QBarSet* > sets;
    auto histSeries = new QBarSeries;
-   for ( auto const & row : table )
+   for ( auto const & row : _table )
    {
         sets.push_back( new QBarSet( std::to_string( row.first ).substr(0,3).c_str() ) );
         *sets.back() << row.second;
@@ -66,8 +60,8 @@ ChartBuilder::buildHistohramChart( const Defines::ChartData& _data )
    axisY->setRange(
           0
      ,    std::max_element(
-                 table.cbegin()
-            ,    table.cend()
+                 _table.cbegin()
+            ,    _table.cend()
             ,    []( auto _lhs, auto _rhs )
                  {
                      return _lhs.second < _rhs.second;
@@ -216,8 +210,14 @@ ChartBuilder::buildDiscrepencyChart( const Defines::ChartData& _data )
 /*---------------------------------------------------------------------------*/
 
 QChart*
-ChartBuilder::getHistohramChart() const
+ChartBuilder::getHistohramChart( const Defines::Table& _table )
 {
+    Utils::makeThread( [ & ]()
+        {
+            buildHistohramChart( _table );
+        }
+    );
+
     return m_histohramChart;
 
 } // ChartBuilder::getHistohramChart

@@ -4,6 +4,7 @@
 /*---------------------------------------------------------------------------*/
 
 #include "Headers/ph/ph.hpp"
+#include "Headers/Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -23,7 +24,7 @@ public:
 
     virtual void build() = 0;
 
-    virtual QChart* getHistohramChart() const = 0;
+    virtual QChart* getHistohramChart( const Defines::Table& _table ) = 0;
 
     virtual QChart* getLineChart() const = 0;
 

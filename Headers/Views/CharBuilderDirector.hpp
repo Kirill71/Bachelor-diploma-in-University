@@ -23,13 +23,15 @@ public:
 
     explicit ChartBuilderDirector( PhisicalModel& _model );
 
-    QChart* getHistogramChart() const;
+    QChart* getHistogramChart( const Defines::Table& _table ) const;
 
     QChart* getLineChart() const;
 
     QChart* getEchoSignalsChart() const;
 
     QChart* getDiscrepencyChart() const;
+
+    void construct();
 
 /*---------------------------------------------------------------------------*/
 
@@ -38,8 +40,6 @@ private:
 /*---------------------------------------------------------------------------*/
 
     auto makeBuilderImplPtr( PhisicalModel& _model ) const;
-
-    void construct();
 
 /*---------------------------------------------------------------------------*/
 

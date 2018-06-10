@@ -83,7 +83,7 @@ private:
 
   void getMessageBox( const QString& _text ) const noexcept;
 
-  void drawTable() const;
+  void drawTable( Defines::Table& _table ) const;
 
 /*---------------------------------------------------------------------------*/
 

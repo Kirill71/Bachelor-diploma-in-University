@@ -55,7 +55,6 @@
 //User defined headers
 #include "Headers/Model/Setup.hpp"
 
-
 /*---------------------------------------------------------------------------*/
 
 #endif // ! _PH_HPP_

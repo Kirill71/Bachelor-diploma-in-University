@@ -43,33 +43,44 @@ MainWindow::on_openFile_clicked()
         ,   tr("All Files (*.stat)" )
    );
 
+   if ( ui->horizontalLayout_19->count() )
+   {
+      m_setupColl->clear();
+      delete ui->tabLayout->takeAt( 0 );
+   }
    ui->fileViewLineEdit->setText( m_statFilePath );
+   Defines::Table table;
+   drawTable( table );
 
-   drawTable();
+   m_controller = makeChartControllerImpl( m_setupColl, m_statFilePath.toStdString() );
+   ChartBuilderDirector director( m_controller->getModel() );
+   auto histohramView = new QChartView( director.getHistogramChart( table ) );
+   histohramView->setRenderHint( QPainter::Antialiasing );
+   ui->horizontalLayout_19->addWidget( histohramView );
 
 } // MainWindow::on_openFile_clicked
 
 /*---------------------------------------------------------------------------*/
 
 void
-MainWindow::drawTable() const
+MainWindow::drawTable(  Defines::Table& _table ) const
 {
     std::ifstream statFile( m_statFilePath.toLocal8Bit().constData() );
 
     if ( !statFile.is_open() )
         std::logic_error(" Файл статистики не был открыт, возможно, он не выбран!!!");
 
-
     while( !statFile.eof() )
     {
-      std::string first, second;
+      double first, second;
       statFile >> first >> second;
-
+      _table.push_back( std::make_pair( first , second ) ) ;
       ui->staticTable->insertRow( ui->staticTable->rowCount() );
-      ui->staticTable->setItem(ui->staticTable->rowCount()-1, 0, new QTableWidgetItem( first.c_str() ) );
-      ui->staticTable->setItem( ui->staticTable->rowCount()-1, 1, new QTableWidgetItem( second.c_str() ) );
+      ui->staticTable->setItem(ui->staticTable->rowCount()-1, 0, new QTableWidgetItem( std::to_string( first ).c_str() ) );
+      ui->staticTable->setItem( ui->staticTable->rowCount()-1, 1, new QTableWidgetItem( std::to_string( second ).c_str()  ) );
     };
 
+    _table.erase( --_table.end() );
     ui->staticTable->removeRow( ui->staticTable->rowCount()-1 );
 
     statFile.close();
@@ -154,19 +165,15 @@ MainWindow::on_visualizeButton_clicked()
 
     fillSetupData();
     m_controller = makeChartControllerImpl( m_setupColl, m_statFilePath.toStdString() );
-
     ChartBuilderDirector director( m_controller->getModel() );
+    director.construct();
 
-    auto histohramView = new QChartView( director.getHistogramChart() );
     auto chartView = new QChartView( director.getLineChart() );
     auto  echoSignalsView = new QChartView( director.getEchoSignalsChart() );
     auto discrepencyView = new QChartView( director.getDiscrepencyChart() );
 
-    histohramView->setRenderHint( QPainter::Antialiasing );
     chartView->setRenderHint( QPainter::Antialiasing );
     echoSignalsView->setRenderHint( QPainter::Antialiasing );
-
-    ui->horizontalLayout_19->addWidget( histohramView );
 
     QLayout* vertical = new QVBoxLayout( this );
     vertical->addWidget( echoSignalsView );
