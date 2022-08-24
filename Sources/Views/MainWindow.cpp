@@ -14,13 +14,13 @@ MainWindow::MainWindow(
   , m_controller ( nullptr )
   , m_setupColl( makeSetupCollectionImpl() )
 {
+
     ui->setupUi( this );
 
     ui->staticTable->horizontalHeader()
             ->setSectionResizeMode( QHeaderView::Stretch );
 
     ui->staticTable->setItemDelegate( new NumbersDelegate );
-
 } // MainWindow::MainWindow
 
 /*---------------------------------------------------------------------------*/
@@ -42,6 +42,11 @@ MainWindow::on_openFile_clicked()
         ,   QDir::currentPath()
         ,   tr("All Files (*.stat)" )
    );
+
+   if (m_statFilePath.isEmpty())
+   {
+       return;
+   }
 
    if ( ui->horizontalLayout_19->count() )
    {
@@ -151,6 +156,7 @@ MainWindow::getMessageBox(const QString& _text ) const noexcept
 void
 MainWindow::on_visualizeButton_clicked()
 {
+
     if ( m_statFilePath.isEmpty() )
     {
        getMessageBox("Файл статистики не выбран!");
@@ -175,12 +181,14 @@ MainWindow::on_visualizeButton_clicked()
     chartView->setRenderHint( QPainter::Antialiasing );
     echoSignalsView->setRenderHint( QPainter::Antialiasing );
 
-    QLayout* vertical = new QVBoxLayout( this );
+
+    QLayout* vertical = new QVBoxLayout();
     vertical->addWidget( echoSignalsView );
     vertical->addWidget( discrepencyView );
 
     ui->tabLayout->addLayout( vertical );
     ui->tabLayout->addWidget( chartView );
+
 
 } // MainWindow::on_visualizeButton_clicked
 

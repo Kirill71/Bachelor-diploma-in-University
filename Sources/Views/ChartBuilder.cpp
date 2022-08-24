@@ -2,6 +2,29 @@
 #include "Headers/Views/ChartBuilder.hpp"
 #include "Headers/Utils/Utils.hpp"
 
+
+
+namespace
+
+{
+
+template<typename AxiesType = QBarCategoryAxis>
+struct ChartAxies final
+{
+    AxiesType* x;
+    AxiesType* y;
+};
+
+template<typename ChartType, typename AxiesType>
+void setAxies(ChartType* chart, ChartAxies<AxiesType>& axies)
+{
+    chart->createDefaultAxes();
+    chart->addAxis( axies.x, Qt::AlignBottom );
+    chart->addAxis( axies.y,  Qt::AlignLeft );
+}
+
+} // anon namespace
+
 /*---------------------------------------------------------------------------*/
 
 ChartBuilder::ChartBuilder( PhisicalModel& _model  )
@@ -20,23 +43,9 @@ ChartBuilder::build()
 {
     auto data = m_model.calculatePhisicalModel();
 
-    Utils::makeThread( [ & ]()
-        {
-            buildLineChart( data );
-        }
-    );
-
-    Utils::makeThread( [ & ]()
-        {
-            buildEchoSignalsChart( data );
-        }
-    );
-
-    Utils::makeThread( [ & ]()
-        {
-            buildDiscrepencyChart( data );
-        }
-    );
+    buildLineChart( data );
+    buildEchoSignalsChart( data );
+    buildDiscrepencyChart( data );
 
 } // ChartBuilder::build
 
@@ -70,7 +79,8 @@ ChartBuilder::buildHistohramChart( const Defines::Table& _table )
    );
 
    axisY->setTickCount( 7 );
-   m_histohramChart->setAxisY( axisY, histSeries );
+   m_histohramChart->addAxis(axisY, Qt::AlignLeft);
+   histSeries->attachAxis(axisY);
    m_histohramChart->legend()->setVisible( true );
    m_histohramChart->legend()->setAlignment( Qt::AlignBottom );
 
@@ -112,9 +122,14 @@ ChartBuilder::buildLineChart( const Defines::ChartData& _data )
     m_lineChart->addSeries( series );
 
     m_lineChart->setAnimationOptions( QChart::SeriesAnimations );
-    m_lineChart->createDefaultAxes();
-    m_lineChart->axisX()->setMin( 0.0 );
-    m_lineChart->axisY()->setMin( 0.0 );
+
+    auto axisX = new QValueAxis();
+    axisX->setMin(0.0);
+    auto axisY = new QValueAxis();
+    axisY->setMin(0.0);
+
+    ChartAxies<QValueAxis> axies {axisX, axisY};
+    setAxies(m_lineChart, axies);
 
     m_lineChart->legend()->setVisible( true );
     m_lineChart->legend()->setAlignment( Qt::AlignBottom );
@@ -152,9 +167,9 @@ ChartBuilder::buildEchoSignalsChart( const Defines::ChartData& _data )
     auto& settings = m_model.getSetupData();
     axisX->append( settings[ SoundingFrequensies ].split( "," ) );
     axisY->append( axisYSeries );
-    m_echoSignalsChart->createDefaultAxes();
-    m_echoSignalsChart->setAxisX( axisX );
-    m_echoSignalsChart->setAxisY( axisY );
+
+    ChartAxies<> axies{axisX, axisY};
+    setAxies(m_echoSignalsChart, axies);
 
     m_echoSignalsChart->setAnimationOptions( QChart::SeriesAnimations );
 
@@ -195,9 +210,9 @@ ChartBuilder::buildDiscrepencyChart( const Defines::ChartData& _data )
     auto& settings = m_model.getSetupData();
     axisX->append( settings[ RegularAlfaValue ].split( "," ) );
     axisY->append( axisYSeries );
-    m_discrepancyChart->createDefaultAxes();
-    m_discrepancyChart->setAxisX( axisX );
-    m_discrepancyChart->setAxisY( axisY );
+
+    ChartAxies<> axies{axisX, axisY};
+    setAxies(m_discrepancyChart, axies);
 
     m_discrepancyChart->setAnimationOptions( QChart::SeriesAnimations );
 
@@ -212,12 +227,8 @@ ChartBuilder::buildDiscrepencyChart( const Defines::ChartData& _data )
 QChart*
 ChartBuilder::getHistohramChart( const Defines::Table& _table )
 {
-    Utils::makeThread( [ & ]()
-        {
-            buildHistohramChart( _table );
-        }
-    );
 
+    buildHistohramChart( _table );
     return m_histohramChart;
 
 } // ChartBuilder::getHistohramChart

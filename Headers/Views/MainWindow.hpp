@@ -18,8 +18,6 @@
 
 /*---------------------------------------------------------------------------*/
 
-#include "Headers/ph/ph.hpp"
-
 #include"Headers/Controllers/ChartController.hpp"
 
 #include <QWidget>
