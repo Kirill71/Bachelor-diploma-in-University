@@ -3,7 +3,23 @@
 #include "Views/NumbersDelegate.hpp"
 
 #include "ui_mainwindow.h"
+/*---------------------------------------------------------------------------*/
 
+namespace
+{
+    /*---------------------------------------------------------------------------*/
+
+    void getMessageBox(const QString& _text )
+    {
+        QMessageBox msgBox;
+        msgBox.setText( _text );
+        msgBox.exec();
+
+    }
+
+    /*---------------------------------------------------------------------------*/
+
+} // anon namespace
 
 /*---------------------------------------------------------------------------*/
 
@@ -73,7 +89,7 @@ MainWindow::drawTable(  Defines::Table& _table ) const
     std::ifstream statFile( m_statFilePath.toLocal8Bit().constData() );
 
     if ( !statFile.is_open() )
-        std::logic_error(" Файл статистики не был открыт, возможно, он не выбран!!!");
+        throw std::logic_error(" Файл статистики не был открыт, возможно, он не выбран!!!");
 
     while( !statFile.eof() )
     {
@@ -129,7 +145,7 @@ MainWindow::fillSetupData()
         for( auto const& value: freqSoundingList )
             boost::lexical_cast< double >( value.toStdString() );
 
-    } catch ( boost::bad_lexical_cast )
+    } catch ( boost::bad_lexical_cast& )
     {
        getMessageBox("Частоты зондирования введены некорректно!");
        return;
@@ -139,17 +155,6 @@ MainWindow::fillSetupData()
     insert(SoundingFrequensies, ui->FreqSoundingTextEdit->toPlainText() );
 
 } //MainWindow::fillSetupData
-
-/*---------------------------------------------------------------------------*/
-
-void
-MainWindow::getMessageBox(const QString& _text ) const noexcept
-{
-    QMessageBox msgBox;
-    msgBox.setText( _text );
-    msgBox.exec();
-
-} // MainWindow::getMessageBox
 
 /*---------------------------------------------------------------------------*/
 

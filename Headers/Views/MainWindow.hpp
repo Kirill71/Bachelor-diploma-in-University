@@ -77,8 +77,6 @@ private:
 
   void fillSetupData();
 
-  void getMessageBox( const QString& _text ) const noexcept;
-
   void drawTable( Defines::Table& _table ) const;
 
 /*---------------------------------------------------------------------------*/
