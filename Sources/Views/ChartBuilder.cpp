@@ -1,6 +1,6 @@
 ﻿
-#include "Headers/Views/ChartBuilder.hpp"
-#include "Headers/Utils/Utils.hpp"
+#include "Views/ChartBuilder.hpp"
+#include "Utils/Utils.hpp"
 
 
 

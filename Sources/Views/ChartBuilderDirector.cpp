@@ -1,5 +1,5 @@
 
-#include "Headers/Views/CharBuilderDirector.hpp"
+#include "Views/CharBuilderDirector.hpp"
 
 /*---------------------------------------------------------------------------*/
 

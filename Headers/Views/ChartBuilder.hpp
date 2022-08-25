@@ -3,8 +3,8 @@
 
 /*---------------------------------------------------------------------------*/
 
-#include "Headers/Views/Builder.hpp"
-#include "Headers/Model/PhisicalModel.hpp"
+#include "Views/Builder.hpp"
+#include "Model/PhisicalModel.hpp"
 
 /*---------------------------------------------------------------------------*/
 

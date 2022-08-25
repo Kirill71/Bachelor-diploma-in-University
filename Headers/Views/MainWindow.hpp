@@ -18,7 +18,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#include"Headers/Controllers/ChartController.hpp"
+#include"Controllers/ChartController.hpp"
 
 #include <QWidget>
 

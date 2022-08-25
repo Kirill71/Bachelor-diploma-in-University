@@ -1,9 +1,9 @@
 #ifndef CHART_CONTROLLER_HPP_
 #define CHART_CONTROLLER_HPP_
 
-#include "Headers/ph/ph.hpp"
-#include "Headers/Model/PhisicalModel.hpp"
-#include "Headers/Utils/Defines.hpp"
+#include "ph/ph.hpp"
+#include "Model/PhisicalModel.hpp"
+#include "Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 

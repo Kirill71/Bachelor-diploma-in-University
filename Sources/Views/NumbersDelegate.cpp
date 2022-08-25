@@ -1,5 +1,5 @@
 
-#include "Headers/Views/NumbersDelegate.hpp"
+#include "Views/NumbersDelegate.hpp"
 
 /*---------------------------------------------------------------------------*/
 

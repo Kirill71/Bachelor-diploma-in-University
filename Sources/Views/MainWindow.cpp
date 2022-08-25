@@ -1,6 +1,6 @@
-#include "Headers/Views/MainWindow.hpp"
-#include "Headers/Views/CharBuilderDirector.hpp"
-#include "Headers/Views/NumbersDelegate.hpp"
+#include "Views/MainWindow.hpp"
+#include "Views/CharBuilderDirector.hpp"
+#include "Views/NumbersDelegate.hpp"
 
 #include "ui_mainwindow.h"
 

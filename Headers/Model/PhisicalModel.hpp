@@ -18,10 +18,10 @@
 
 /*---------------------------------------------------------------------------*/
 
-#include "Headers/ph/ph.hpp"
-#include "Headers/Model/Gauss.hpp"
-#include "Headers/Utils/Log.hpp"
-#include "Headers/Utils/Defines.hpp"
+#include "ph/ph.hpp"
+#include "Model/Gauss.hpp"
+#include "Utils/Log.hpp"
+#include "Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 

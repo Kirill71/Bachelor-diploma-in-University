@@ -3,8 +3,8 @@
 
 /*---------------------------------------------------------------------------*/
 
-#include "Headers/Views/Builder.hpp"
-#include "Headers/Views/ChartBuilder.hpp"
+#include "Views/Builder.hpp"
+#include "Views/ChartBuilder.hpp"
 
 /*---------------------------------------------------------------------------*/
 

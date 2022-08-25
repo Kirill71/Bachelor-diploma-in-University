@@ -1,4 +1,4 @@
-#include "Headers/Views/MainWindow.hpp"
+#include "Views/MainWindow.hpp"
 #include<QTranslator>
 #include <QApplication>
 
@@ -10,11 +10,11 @@ int main( int argc, char *argv[] )
     QTranslator translator;
     translator.load("diplom_" + locale);
 
-    application.installTranslator(&translator);
+    QApplication::installTranslator(&translator);
 
     MainWindow window;
     window.show();
 
-    return application.exec();
+    return QApplication::exec();
 
 }

@@ -18,7 +18,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#include "Headers/ph/ph.hpp"
+#include "ph/ph.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -99,7 +99,8 @@ Log::log( FileType _type )
 
         case FileType::Chart:
             return *m_chartFile;
-
+        default:
+            return *m_inputStatFile;
     }
 
 } // Log::log

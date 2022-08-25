@@ -1,4 +1,4 @@
-#include "Headers/Model/Gauss.hpp"
+#include "Model/Gauss.hpp"
 
 /*---------------------------------------------------------------------------*/
 

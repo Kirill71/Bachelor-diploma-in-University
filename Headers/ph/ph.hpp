@@ -28,7 +28,7 @@
 #ifdef _WIN32
   #define _USE_MATH_DEFINES
 #endif
-#include <math.h>
+#include <cmath>
 
 // Boost headers
 #include<boost/noncopyable.hpp>
@@ -53,8 +53,8 @@
 #include <QMessageBox>
 
 //User defined headers
-#include "Headers/Model/Setup.hpp"
+#include "Model/Setup.hpp"
 
 /*---------------------------------------------------------------------------*/
 
-#endif // ! _PH_HPP_
+#endif // PH_HPP_

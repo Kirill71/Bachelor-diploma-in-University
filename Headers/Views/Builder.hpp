@@ -3,8 +3,8 @@
 
 /*---------------------------------------------------------------------------*/
 
-#include "Headers/ph/ph.hpp"
-#include "Headers/Utils/Defines.hpp"
+#include "ph/ph.hpp"
+#include "Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 

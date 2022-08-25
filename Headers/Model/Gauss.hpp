@@ -16,8 +16,8 @@
 #ifndef GAUSS_HPP_
 #define GAUSS_HPP_
 
-#include "Headers/ph/ph.hpp"
-#include "Headers/Model/Matrix.hpp"
+#include "ph/ph.hpp"
+#include "Model/Matrix.hpp"
 
 /*---------------------------------------------------------------------------*/
 

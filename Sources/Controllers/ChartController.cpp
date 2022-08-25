@@ -1,6 +1,6 @@
-#include "Headers/Controllers/ChartController.hpp"
-#include "Headers/Views/MainWindow.hpp"
-#include "Headers/Utils/Defines.hpp"
+#include "Controllers/ChartController.hpp"
+#include "Views/MainWindow.hpp"
+#include "Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
 
