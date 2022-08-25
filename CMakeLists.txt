@@ -6,7 +6,15 @@ include_directories(include/boost_1_65_1 Headers)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH "/opt/Qt/5.15.2/gcc_64")
+
+add_definitions(-DCUSTOMER_PREFIX_PATH)
+
+if (NOT DEFINED CUSTOMER_PREFIX_PATH OR CUSTOMER_PREFIX_PATH STREQUAL "")
+    message(FATAL_ERROR "You have to specify your own Qt prefix path using CMAKE_PREFIX_PATH argument.")
+else()
+    set(CMAKE_PREFIX_PATH ${CUSTOMER_PREFIX_PATH})
+endif()
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
