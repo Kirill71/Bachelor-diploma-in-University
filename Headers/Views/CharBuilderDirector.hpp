@@ -1,5 +1,4 @@
-#ifndef CHARBUILDERDIRECTOR_HPP
-#define CHARBUILDERDIRECTOR_HPP
+#pragma once
 
 /*---------------------------------------------------------------------------*/
 
@@ -21,7 +20,7 @@ public:
 
 /*---------------------------------------------------------------------------*/
 
-    explicit ChartBuilderDirector( PhisicalModel& _model );
+    explicit ChartBuilderDirector(PhysicalModel& _model );
 
     QChart* getHistogramChart( const Defines::Table& _table ) const;
 
@@ -39,7 +38,7 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-    auto makeBuilderImplPtr( PhisicalModel& _model ) const;
+    auto makeBuilderImplPtr(PhysicalModel& _model ) const;
 
 /*---------------------------------------------------------------------------*/
 
@@ -52,9 +51,7 @@ private:
 /*---------------------------------------------------------------------------*/
 
 inline auto
-ChartBuilderDirector::makeBuilderImplPtr( PhisicalModel& _model ) const
+ChartBuilderDirector::makeBuilderImplPtr(PhysicalModel& _model ) const
 {
     return std::make_unique< ChartBuilder >( _model );
 }
-
-#endif // CHARBUILDERDIRECTOR_HPP

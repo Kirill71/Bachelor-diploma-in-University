@@ -13,8 +13,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#ifndef GAUSS_HPP_
-#define GAUSS_HPP_
+#pragma once
 
 #include "ph/ph.hpp"
 #include "Model/Matrix.hpp"
@@ -100,5 +99,3 @@ Gauss::makeData( const _DataType & _rawData ) const noexcept
 } // Gauss::makeData< _DataType >
 
 /*---------------------------------------------------------------------------*/
-
-#endif // !GAUSS_HPP_

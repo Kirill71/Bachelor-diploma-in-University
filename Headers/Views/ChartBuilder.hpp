@@ -1,10 +1,9 @@
-#ifndef CHART_BUILDER_HPP_
-#define CHART_BUILDER_HPP_
+#pragma once
 
 /*---------------------------------------------------------------------------*/
 
 #include "Views/Builder.hpp"
-#include "Model/PhisicalModel.hpp"
+#include "Model/PhysicalModel.hpp"
 
 /*---------------------------------------------------------------------------*/
 
@@ -17,7 +16,7 @@ public:
 
 /*---------------------------------------------------------------------------*/
 
-    explicit ChartBuilder( PhisicalModel& _model );
+    explicit ChartBuilder(PhysicalModel& _model );
 
     ~ChartBuilder() override = default;
 
@@ -65,12 +64,10 @@ private:
 
     QChart* m_discrepancyChart;
 
-    PhisicalModel& m_model;
+    PhysicalModel& m_model;
 
 /*---------------------------------------------------------------------------*/
 
 }; // class ChartBuilder
 
 /*---------------------------------------------------------------------------*/
-
-#endif

@@ -27,7 +27,7 @@ void setAxies(ChartType* chart, ChartAxies<AxiesType>& axies)
 
 /*---------------------------------------------------------------------------*/
 
-ChartBuilder::ChartBuilder( PhisicalModel& _model  )
+ChartBuilder::ChartBuilder(PhysicalModel& _model  )
     :   m_histohramChart( new QChart() )
     ,   m_lineChart( new QChart() )
     ,   m_echoSignalsChart( new QChart() )

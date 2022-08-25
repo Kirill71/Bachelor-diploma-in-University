@@ -13,13 +13,11 @@
 
 /*---------------------------------------------------------------------------*/
 
-#ifndef MAINWINDOW_HPP
-#define MAINWINDOW_HPP
+#pragma once
 
 /*---------------------------------------------------------------------------*/
 
 #include"Controllers/ChartController.hpp"
-
 #include <QWidget>
 
 /*---------------------------------------------------------------------------*/
@@ -129,4 +127,3 @@ MainWindow::makeSetupCollectionImpl() const noexcept
 
 /*---------------------------------------------------------------------------*/
 
-#endif // MAINWINDOW_HPP

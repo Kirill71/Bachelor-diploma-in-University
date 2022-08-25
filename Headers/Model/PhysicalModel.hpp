@@ -5,7 +5,7 @@
 
     Date creation: 20.01.2018
 
-    Purpose: class for representation phisical model.
+    Purpose: class for representation physical model.
 
     All right reserved (c).
 
@@ -13,8 +13,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-#ifndef PHISICAL_MODEL_HPP_
-#define PHISICAL_MODEL_HPP_
+#pragma once
 
 /*---------------------------------------------------------------------------*/
 
@@ -25,7 +24,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-class PhisicalModel
+class PhysicalModel
 {
 
 /*---------------------------------------------------------------------------*/
@@ -36,7 +35,7 @@ class PhisicalModel
 
 /*---------------------------------------------------------------------------*/
 
-    const double averageSpeedSoundInSeaWater { 1.522E5 };
+    static constexpr double averageSpeedSoundInSeaWater { 1.522E5 };
 
 /*---------------------------------------------------------------------------*/
 
@@ -54,14 +53,14 @@ public:
 
 /*---------------------------------------------------------------------------*/
 
-    PhisicalModel() = default;
+    PhysicalModel() = default;
 
-    PhisicalModel(
+    PhysicalModel(
          const SetupCollImplPtr& _setup
       ,  const std::string& _inputStatFilePath
     );
 
-    ~PhisicalModel();
+    ~PhysicalModel();
 
 /*---------------------------------------------------------------------------*/
 
@@ -103,35 +102,33 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-}; // class PhisicalModel
+}; // class PhysicalModel
 
  /*---------------------------------------------------------------------------*/
 
 inline double
-PhisicalModel::beta( double _scalar ) const noexcept
+PhysicalModel::beta(double _scalar ) const noexcept
 {
         return _scalar * _scalar;
 
-} // PhisicalModel::beta
+} // PhysicalModel::beta
 
 /*---------------------------------------------------------------------------*/
 
 inline double
-PhisicalModel::resonanceFrequency( double _radius, double _d ) const noexcept
+PhysicalModel::resonanceFrequency(double _radius, double _d ) const noexcept
 {
         return _radius / _d;
 
-} // PhisicalModel::resonanceFrequency
+} // PhysicalModel::resonanceFrequency
 
 /*---------------------------------------------------------------------------*/
 
 inline auto
-PhisicalModel::makeLogImpl( const std::string& _inputStatFilePath ) const noexcept
+PhysicalModel::makeLogImpl(const std::string& _inputStatFilePath ) const noexcept
 {
     return std::make_unique< Log >( _inputStatFilePath );
 
-} // PhisicalModel::makeLogImpl
+} // PhysicalModel::makeLogImpl
 
 /*---------------------------------------------------------------------------*/
-
-#endif // !PHISICAL_MODEL_HPP

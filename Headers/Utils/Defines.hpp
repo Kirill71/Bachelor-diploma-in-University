@@ -1,5 +1,4 @@
-#ifndef DEFINES_HPP
-#define DEFINES_HPP
+#pragma once
 
 /*---------------------------------------------------------------------------*/
 
@@ -42,5 +41,3 @@ namespace Defines {
 } // namespace Defines
 
 /*---------------------------------------------------------------------------*/
-
-#endif // DEFINES_HPP

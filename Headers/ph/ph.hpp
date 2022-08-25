@@ -11,8 +11,7 @@
 
 */
 
-#ifndef PH_HPP_
-#define PH_HPP_
+#pragma once
 
 // STL Headers
 #include <vector>
@@ -57,4 +56,3 @@
 
 /*---------------------------------------------------------------------------*/
 
-#endif // PH_HPP_

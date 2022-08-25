@@ -1,8 +1,9 @@
-#ifndef CHART_CONTROLLER_HPP_
-#define CHART_CONTROLLER_HPP_
+#pragma once
+
+/*---------------------------------------------------------------------------*/
 
 #include "ph/ph.hpp"
-#include "Model/PhisicalModel.hpp"
+#include "Model/PhysicalModel.hpp"
 #include "Utils/Defines.hpp"
 
 /*---------------------------------------------------------------------------*/
@@ -18,7 +19,7 @@ class ChartController
 
 /*---------------------------------------------------------------------------*/
 
-    using PhisicalModelImplPtr = std::unique_ptr< PhisicalModel >;
+    using PhisicalModelImplPtr = std::unique_ptr< PhysicalModel >;
 
 /*---------------------------------------------------------------------------*/
 
@@ -41,7 +42,7 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-    auto makePhisicalModel(
+    auto makePhysicalModel(
             const Defines::SetupCollPtr& _setup
         ,   const std::string& _inputStatFilePath
     ) const noexcept;
@@ -63,18 +64,16 @@ private:
 /*---------------------------------------------------------------------------*/
 
 inline auto
-ChartController:: makePhisicalModel(
+ChartController:: makePhysicalModel(
         const Defines::SetupCollPtr& _setup
     ,   const std::string& _inputStatFilePath
 ) const noexcept
 {
-    return std::make_unique< PhisicalModel >(
+    return std::make_unique< PhysicalModel >(
             _setup
         ,   _inputStatFilePath
     );
 
-} // ChartController:: makePhisicalModel
+} // ChartController:: makePhysicalModel
 
 /*---------------------------------------------------------------------------*/
-
-#endif // !CHART_CONTROLLER_HPP_

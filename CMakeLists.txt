@@ -25,7 +25,7 @@ add_executable(Diplom
     Sources/Views/MainWindow.cpp
     Sources/Model/Gauss.cpp
     Sources/Model/Matrix.cpp
-    Sources/Model/PhisicalModel.cpp
+        Sources/Model/PhysicalModel.cpp
     Sources/Tests/testMain.cpp
     Sources/ph/ph.cpp
     Sources/Utils/Log.cpp

@@ -10,7 +10,7 @@ ChartController::ChartController(
     ,   const std::string& _inputStatFilePath
 )
     :   m_window( _window )
-    ,   m_model( makePhisicalModel( _setup, _inputStatFilePath ) )
+    ,   m_model(makePhysicalModel(_setup, _inputStatFilePath) )
 {
 } // ChartController::ChartController
 

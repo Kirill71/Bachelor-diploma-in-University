@@ -3,7 +3,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-ChartBuilderDirector::ChartBuilderDirector( PhisicalModel& _model )
+ChartBuilderDirector::ChartBuilderDirector(PhysicalModel& _model )
     :   m_builder( makeBuilderImplPtr( _model ) )
 {
 } // ChartBuilderDirector::ChartBuilderDirector

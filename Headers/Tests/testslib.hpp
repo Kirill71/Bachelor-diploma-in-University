@@ -8,8 +8,7 @@ refactored by Kirill Zharenkov, Aldec-KTC(c)
 
 */
 
-#ifndef TESTSLIB_HPP_
-#define TESTSLIB_HPP_
+#pragma once
 
 /*-----------------------------------------------------------------*/
 
@@ -141,4 +140,3 @@ int main ()
 }
 
 /*-----------------------------------------------------------------*/
-#endif //  _TESTSLIB_HPP_

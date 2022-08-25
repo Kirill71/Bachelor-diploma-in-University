@@ -1,5 +1,4 @@
-#ifndef SETUP_HPP
-#define SETUP_HPP
+#pragma once
 
 enum Setup
 {
@@ -16,4 +15,3 @@ enum Setup
     ,   RegularAlfaValue
 };
 
-#endif // SETUP_HPP

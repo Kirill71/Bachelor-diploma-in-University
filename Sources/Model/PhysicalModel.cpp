@@ -1,28 +1,28 @@
-#include "Model/PhisicalModel.hpp"
+#include "Model/PhysicalModel.hpp"
 
 /*---------------------------------------------------------------------------*/
 
-PhisicalModel::PhisicalModel(
+PhysicalModel::PhysicalModel(
         const SetupCollImplPtr& _setup
     ,   const std::string & _inputStatFilePath
 )
     :   m_log (  makeLogImpl( _inputStatFilePath ) )
     ,   m_setup( *_setup )
 {
-} // PhisicalModel::PhisicalModel
+} // PhysicalModel::PhysicalModel
 
 /*---------------------------------------------------------------------------*/
 
-PhisicalModel::~PhisicalModel()
+PhysicalModel::~PhysicalModel()
 {
     m_log.reset();
 
-} // PhisicalModel::~PhisicalModel
+} // PhysicalModel::PhysicalModel
 
 /*---------------------------------------------------------------------------*/
 
 Defines::ChartData
-PhisicalModel::calculatePhisicalModel()
+PhysicalModel::calculatePhisicalModel()
 {
     using VectorInt = std::vector < int >;
 
@@ -324,15 +324,15 @@ PhisicalModel::calculatePhisicalModel()
 
     return { table, radiusCollection, Nm, n_r, mv_f, frecExp, delta_al, alphaVector };
 
-} // PhisicalModel::calculatePhisicalModel
+} // PhysicalModel::calculatePhisicalModel
 
 /*----------------------------------------------------------------------------*/
 
-PhisicalModel::SetupCollImpl&
-PhisicalModel::getSetupData() const
+PhysicalModel::SetupCollImpl&
+PhysicalModel::getSetupData() const
 {
     return m_setup;
 
-} // PhisicalModel::getSetupData()
+} // PhysicalModel::getSetupData()
 
 /*----------------------------------------------------------------------------*/

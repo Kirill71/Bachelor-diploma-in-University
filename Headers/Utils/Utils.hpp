@@ -1,8 +1,4 @@
-
-
-
-#ifndef UTILS_HPP_
-#define UTILS_HPP_
+#pragma once
 
 /*---------------------------------------------------------------------------*/
 
@@ -23,5 +19,3 @@ void makeThread( const std::function< void() >& _functor );
 /*---------------------------------------------------------------------------*/
 
 } // namespace Utils
-
-#endif // UTILS_HPP_
