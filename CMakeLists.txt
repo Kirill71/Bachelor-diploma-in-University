@@ -5,6 +5,7 @@ set(CUSTOM_INCLUDE_DIR "Headers")
 
 include_directories(${CUSTOM_INCLUDE_DIR})
 
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -33,7 +34,6 @@ set(HEADERS
     Headers/Model/PhysicalModel.hpp
     Headers/Utils/Log.hpp
     Headers/Utils/Utils.hpp
-    Headers/ph/ph.hpp
     Headers/Controllers/ChartController.hpp
     Headers/Views/MainWindow.hpp
     Headers/Views/ChartBuilder.hpp
@@ -63,14 +63,13 @@ add_executable(unit-tests
     Headers/Model/Matrix.hpp
 )
 
-
-add_executable(Diploma
+add_executable(ips
     ${HEADERS}
     ${SOURCES}
      main.cpp
 )
 
-target_precompile_headers(Diploma PUBLIC Headers/ph/ph.hpp)
+target_precompile_headers(ips PUBLIC ${CUSTOM_INCLUDE_DIR}/ph/ph.hpp)
 
 set(COMMON_LIBS
     Qt::Core
@@ -80,7 +79,7 @@ set(COMMON_LIBS
 )
 
 if (UNIX)
-    target_link_libraries(Diploma
+    target_link_libraries(ips
         ${COMMON_LIBS}
         pthread
     )
@@ -90,7 +89,7 @@ if (UNIX)
         pthread
     )
 else()
-    target_link_libraries(Diploma
+    target_link_libraries(ips
         ${COMMON_LIBS}
     )
     target_link_libraries(unit-tests
