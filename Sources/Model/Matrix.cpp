@@ -5,13 +5,13 @@
 auto
 Matrix::makeMatrixImpl( size_t _rowSize ) const noexcept
 {
-    return std::make_unique< Matrix::MatrixImpl >( _rowSize );
+    return std::make_unique< MatrixImpl >( _rowSize );
 
 } // Matrix::makeMatrixImpl
 
 /*---------------------------------------------------------------------------*/
 
-Matrix::Matrix( size_t _rowSize, size_t _collSize )
+Matrix::Matrix( const size_t _rowSize, const size_t _collSize )
     :	m_rowSize( _rowSize )
     ,	m_collSize( _collSize )
     ,	m_matrix( makeMatrixImpl( m_rowSize ) )
@@ -20,7 +20,7 @@ Matrix::Matrix( size_t _rowSize, size_t _collSize )
     std::for_each(
             begin()
         ,	end()
-        ,	[ = ]( Matrix::Row& _row )
+        ,	[ = ]( Row& _row )
             {
                 _row.resize( m_collSize );
             }
@@ -52,13 +52,13 @@ Matrix::Matrix(
 
     std::for_each(
             m_matrix->begin()
-        ,	m_matrix->end()
-        ,	[ & ]( Row& _row )
+        ,  m_matrix->end()
+        ,  [ & ]( Row& _row )
             {
                 std::for_each(
-                        _row.begin()
-                    ,	_row.end()
-                    ,	[ & ]( MatrixDataType& _data )
+                       _row.begin()
+                    ,  _row.end()
+                    ,  [ & ]( MatrixDataType& _data )
                         {
                             _data = *it++;
                         }
@@ -73,11 +73,14 @@ Matrix::Matrix(
 Matrix&
 Matrix::operator= ( const Matrix& _matrix )
 {
-    if (this != &_matrix )
-    {
-        this->~Matrix();
-        new ( this ) Matrix( _matrix );
-    }
+    // if (this != &_matrix )
+    // {
+    //     this->~Matrix();
+    //     new ( this ) Matrix( _matrix );
+    // }
+
+    Matrix temp {_matrix};
+    std::swap(*this, temp);
 
     return *this;
 
@@ -175,7 +178,7 @@ operator+ ( const Matrix::Row& _lhs, const Matrix::Row & _rhs )
         ,   _lhs.end()
         ,   _rhs.begin()
         ,   std::back_inserter( result )
-        ,   std::plus< Matrix::MatrixDataType >()
+        ,   std::plus< >( )
     );
 
     return result;
@@ -189,13 +192,13 @@ operator* ( const Matrix::Row & _row, const Matrix::MatrixDataType _scalar )
 {
     using namespace std::placeholders;
 
-    Matrix::Row  result;
+    Matrix::Row result;
 
     std::transform(
             _row.begin()
         ,   _row.end()
         ,   result.begin()
-        ,   std::bind( std::multiplies< Matrix::MatrixDataType >(), _1, _scalar )
+        ,   std::bind( std::multiplies< >(), _1, _scalar )
     );
 
     return result;
@@ -215,7 +218,7 @@ operator<< ( std::ostream & _ostream, const Matrix & _matrix )
                 std::for_each(
                         _row.cbegin()
                     ,   _row.cend()
-                    ,   [ & ]( Matrix::MatrixDataType _value )
+                    ,   [ & ]( const Matrix::MatrixDataType _value )
                         {
                             _ostream << _value << " ";
                         }
@@ -233,7 +236,7 @@ operator<< ( std::ostream & _ostream, const Matrix & _matrix )
 /*---------------------------------------------------------------------------*/
 
 const std::istream&
-operator>> ( std::istream & _istream, Matrix & _matrix )
+operator>> ( std::istream & _istream, const Matrix & _matrix )
 {
     std::for_each(
             _matrix.cbegin()
