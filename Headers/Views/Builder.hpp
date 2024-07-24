@@ -7,19 +7,20 @@
 
 /*---------------------------------------------------------------------------*/
 
-QT_CHARTS_USE_NAMESPACE
-
+class Builder
+{
 /*---------------------------------------------------------------------------*/
 
-class Builder
-    :   public boost::noncopyable
-{
+    Q_DISABLE_COPY_MOVE(Builder)
+
 /*---------------------------------------------------------------------------*/
 
 public:
 /*---------------------------------------------------------------------------*/
 
-    virtual ~Builder() noexcept {}
+    Builder() = default;
+
+    virtual ~Builder() noexcept = default;
 
     virtual void build() = 0;
 

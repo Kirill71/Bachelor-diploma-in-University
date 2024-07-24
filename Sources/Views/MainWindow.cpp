@@ -9,12 +9,11 @@ namespace
 {
     /*---------------------------------------------------------------------------*/
 
-    void getMessageBox(const QString& _text )
+    void showMessageBox(const QString& _text )
     {
         QMessageBox msgBox;
         msgBox.setText( _text );
         msgBox.exec();
-
     }
 
     /*---------------------------------------------------------------------------*/
@@ -44,7 +43,6 @@ MainWindow::MainWindow(
 MainWindow::~MainWindow()
 {
   delete ui;
-
 } // MainWindow::~MainWindow
 
 /*---------------------------------------------------------------------------*/
@@ -84,7 +82,7 @@ MainWindow::on_openFile_clicked()
 /*---------------------------------------------------------------------------*/
 
 void
-MainWindow::drawTable(  Defines::Table& _table ) const
+MainWindow::drawTable( Defines::Table& _table ) const
 {
     std::ifstream statFile( m_statFilePath.toLocal8Bit().constData() );
 
@@ -133,9 +131,10 @@ MainWindow::fillSetupData()
     int index = ui->indexAlfaSpinBox->value();
     if ( index > regularAlfaValuesList.size() )
     {
-        getMessageBox("Порядковый номер альфа вышел за границы диапазона!");
+        showMessageBox("Порядковый номер альфа вышел за границы диапазона!");
         return;
     }
+
     insert( SoundingFreqNumber, freqSoundingList.size() );
     insert( AlfaNumber, index );
     insert( RegularAlfaValue, ui->regularAlfaValuesTextEdit->toPlainText() );
@@ -143,11 +142,11 @@ MainWindow::fillSetupData()
     try
     {
         for( auto const& value: freqSoundingList )
-            boost::lexical_cast< double >( value.toStdString() );
+            std::stod( value.toStdString() );
 
-    } catch ( boost::bad_lexical_cast& )
+    } catch ( ... )
     {
-       getMessageBox("Частоты зондирования введены некорректно!");
+       showMessageBox("Частоты зондирования введены некорректно!");
        return;
 
     }
@@ -161,10 +160,9 @@ MainWindow::fillSetupData()
 void
 MainWindow::on_visualizeButton_clicked()
 {
-
     if ( m_statFilePath.isEmpty() )
     {
-       getMessageBox("Файл статистики не выбран!");
+       showMessageBox("Файл статистики не выбран!");
        return;
     }
     if ( ui->tabLayout->count() )
@@ -193,8 +191,6 @@ MainWindow::on_visualizeButton_clicked()
 
     ui->tabLayout->addLayout( vertical );
     ui->tabLayout->addWidget( chartView );
-
-
 } // MainWindow::on_visualizeButton_clicked
 
 /*---------------------------------------------------------------------------*/

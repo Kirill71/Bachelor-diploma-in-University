@@ -29,12 +29,7 @@
 #endif
 #include <cmath>
 
-// Boost headers
-#include<boost/noncopyable.hpp>
-#include<boost/lexical_cast.hpp>
-
 // Qt Headers
-#include <QTextCodec>
 #include <QChart>
 #include <QtCharts/QBarSet>
 #include <QtCharts/QBarSeries>
@@ -52,7 +47,7 @@
 #include <QMessageBox>
 
 //User defined headers
-#include "Model/Setup.hpp"
+#include "../Model/Setup.hpp"
 
 /*---------------------------------------------------------------------------*/
 

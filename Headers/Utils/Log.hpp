@@ -21,8 +21,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-class Log
-    : public boost::noncopyable
+class Log final
 {
 
 /*---------------------------------------------------------------------------*/
@@ -54,7 +53,15 @@ class Log
 
     explicit Log( const std::string& _inputStatFilePath );
 
-    FileImpl& log( FileType _type = FileType::Scattering );
+    FileImpl& log( FileType _type = FileType::Scattering ) const;
+
+    Log( const Log& ) = delete;
+
+    Log( Log&& ) = delete;
+
+    Log& operator= ( Log&& ) = delete;
+
+    Log& operator= ( const Log& ) = delete;
 
 /*---------------------------------------------------------------------------*/
 
@@ -62,10 +69,10 @@ private:
 
 /*---------------------------------------------------------------------------*/
 
-    auto makeFileImpl(
+    static auto makeFileImpl(
          const std::string& _filePath
       ,  FileImpl::openmode _mode = FileImpl::in
-    ) const noexcept;
+    ) noexcept;
 
 /*---------------------------------------------------------------------------*/
 
@@ -86,7 +93,7 @@ private:
 /*---------------------------------------------------------------------------*/
 
 inline Log::FileImpl&
-Log::log( FileType _type )
+Log::log( const FileType _type ) const
 {
     switch ( _type )
     {
@@ -109,10 +116,10 @@ Log::log( FileType _type )
 inline auto
 Log::makeFileImpl(
         const std::string& _filePath
-    ,	FileImpl::openmode _mode
-) const noexcept
+    ,   FileImpl::openmode _mode
+) noexcept
 {
-        return std::make_unique< FileImpl >( _filePath, _mode );
+    return std::make_unique< FileImpl >( _filePath, _mode );
 
 } // Log::makeFileImpl
 

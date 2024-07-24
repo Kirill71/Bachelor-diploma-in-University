@@ -6,9 +6,9 @@ int main( int argc, char *argv[] )
 {
     QApplication application( argc, argv );
 
-    QString locale = QLocale::system().name();
+    const auto locale = QLocale::system().name();
     QTranslator translator;
-    translator.load("diplom_" + locale);
+    if (translator.load("diploma_" + locale))
 
     QApplication::installTranslator(&translator);
 

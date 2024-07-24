@@ -39,7 +39,7 @@ public:
 
 	void addTest ( std::string const & _tpName, TestProcedure _tp )
 	{
-		m_testProcedures.push_back( std::make_pair( _tpName, _tp ) );
+		m_testProcedures.emplace_back( _tpName, std::move(_tp) );
 	}
 
 /*-----------------------------------------------------------------*/
@@ -57,7 +57,7 @@ public:
 			, [ & ] ( std::pair< std::string, TestProcedure > const & _test )
 		{
 			std::cout << "Test #" << counter << " \"" << _test.first << "\" ";
-			(_test.second )( );
+			_test.second( );
 			std::cout << "\n> Success... " << '\n';
 			++counter;
 		}
@@ -95,7 +95,7 @@ class TestProcedureWrapper
 public:
 	TestProcedureWrapper ( std::string const & _tpName, TestProcedure _tp )
 	{
-		testsRunner.addTest( _tpName, _tp );
+		testsRunner.addTest( _tpName, std::move(_tp) );
 	}
 };
 
@@ -115,8 +115,8 @@ public:
 #define ASSERT_THROWS( TESTED_CODE, EXPECTED_MESSAGE )		\
 	try                                                     \
 	{                                                       \
-	{ TESTED_CODE; }                                    \
-	assert( ! "Exception must have been thrown" );      \
+		{ TESTED_CODE; }                                    \
+		assert( ! "Exception must have been thrown" );      \
 	}                                                       \
 	catch ( const std::exception & e )                      \
 	{                                                       \

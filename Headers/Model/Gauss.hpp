@@ -20,8 +20,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-class Gauss
-        : public boost::noncopyable
+class Gauss final
 {
 
 /*---------------------------------------------------------------------------*/
@@ -55,6 +54,12 @@ public:
 /*---------------------------------------------------------------------------*/
 
     Gauss( const Matrix& _matrix, const Vector& _vector );
+
+    Gauss( const Gauss& ) = delete;
+    Gauss& operator= ( const Gauss& ) = delete;
+
+    Gauss( Gauss&& ) noexcept = delete;
+    Gauss& operator= ( Gauss&& ) noexcept = delete;
 
     ~Gauss() = default;
 

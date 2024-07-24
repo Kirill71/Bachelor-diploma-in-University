@@ -1,11 +1,8 @@
-﻿
-#include "Views/ChartBuilder.hpp"
+﻿#include "Views/ChartBuilder.hpp"
 #include "Utils/Utils.hpp"
 
 
-
 namespace
-
 {
 
 template<typename AxiesType = QBarCategoryAxis>

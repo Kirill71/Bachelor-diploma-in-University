@@ -21,7 +21,7 @@
 
 /*---------------------------------------------------------------------------*/
 
-class Matrix
+class Matrix final
 {
 
 public:
@@ -50,7 +50,6 @@ public:
 
 /*---------------------------------------------------------------------------*/
 
-	Matrix() = delete;
 	Matrix( size_t _rowSize, size_t _collSize );
 	Matrix(
 		size_t _rowSize
@@ -62,8 +61,8 @@ public:
 	Matrix& operator= ( const Matrix& _matrix );
 
 
-	Matrix( const Matrix&& _matrix ) = delete;
-	Matrix& operator= (const Matrix&& _matrix ) = delete;
+	Matrix( Matrix&& _matrix ) noexcept;
+	Matrix& operator= ( Matrix&& _matrix ) noexcept;
 
 	~Matrix() = default;
 
@@ -92,7 +91,7 @@ public:
 	const Row& operator[] ( size_t _index ) const;
 	Row& operator[] ( size_t _index );
 
-	void clear();
+	void clear() const;
 
 /*---------------------------------------------------------------------------*/
 
@@ -101,12 +100,12 @@ private:
 /*---------------------------------------------------------------------------*/
 
 	friend Row operator+ ( const Row& _lhs, const Row& _rhs );
-	friend Row operator* ( const Row& _row, const MatrixDataType _scalar );
+	friend Row operator* ( const Row& _row, MatrixDataType _scalar );
 
 	friend  std::ostream& operator<< ( std::ostream& _ostream, const Matrix& _matrix );
 	friend  const std::istream& operator>> ( std::istream& _istream, Matrix& _matrix );
 
-	auto makeMatrixImpl( size_t _rowSize )   const  noexcept;
+	auto makeMatrixImpl( size_t _rowSize ) const noexcept;
 
 /*---------------------------------------------------------------------------*/
 

@@ -1,63 +1,99 @@
-
 cmake_minimum_required(VERSION 3.18)
-project(Diplom VERSION 1.0.1 LANGUAGES CXX)
+project(Diploma VERSION 1.0.1 LANGUAGES CXX)
 
-include_directories(include/boost_1_65_1 Headers)
+set(CUSTOM_INCLUDE_DIR "Headers")
+
+include_directories(${CUSTOM_INCLUDE_DIR})
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_definitions(-DCUSTOMER_CMAKE_PREFIX_PATH)
+add_definitions(-DCUSTOM_CMAKE_PREFIX_PATH)
 
-if (NOT DEFINED CUSTOMER_CMAKE_PREFIX_PATH OR CUSTOMER_CMAKE_PREFIX_PATH STREQUAL "")
-    message(FATAL_ERROR "You have to specify your own Qt prefix path using CMAKE_PREFIX_PATH argument.")
+if (NOT DEFINED CUSTOM_CMAKE_PREFIX_PATH OR CUSTOM_CMAKE_PREFIX_PATH STREQUAL "")
+    message(FATAL_ERROR "You have to specify your own Qt prefix path using -DCUSTOM_CMAKE_PREFIX_PATH argument.")
 else()
-    set(CMAKE_PREFIX_PATH ${CUSTOMER_CMAKE_PREFIX_PATH})
+    set(CMAKE_PREFIX_PATH ${CUSTOM_CMAKE_PREFIX_PATH})
 endif()
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS
-        Widgets
-        Core
-        Gui
-        Charts
-        REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS
+    Widgets
+    Core
+    Gui
+    Charts
+)
 
-add_executable(Diplom
-        Sources/Views/mainwindow.ui
-    main.cpp
-    Headers/Views/MainWindow.hpp # this header should be added here otherwise some magic from qt side is being happened.
-    Sources/Views/MainWindow.cpp
+set(HEADERS
+    Headers/Model/Gauss.hpp
+    Headers/Model/Matrix.hpp
+    Headers/Model/PhysicalModel.hpp
+    Headers/Utils/Log.hpp
+    Headers/Utils/Utils.hpp
+    Headers/ph/ph.hpp
+    Headers/Controllers/ChartController.hpp
+    Headers/Views/MainWindow.hpp
+    Headers/Views/ChartBuilder.hpp
+    Headers/Views/CharBuilderDirector.hpp
+    Headers/Views/NumbersDelegate.hpp
+)
+
+set(SOURCES
     Sources/Model/Gauss.cpp
     Sources/Model/Matrix.cpp
-        Sources/Model/PhysicalModel.cpp
-    Sources/Tests/testMain.cpp
-    Sources/ph/ph.cpp
+    Sources/Model/PhysicalModel.cpp
     Sources/Utils/Log.cpp
+    Sources/Utils/Utils.cpp
+    Sources/ph/ph.cpp
+    Sources/Controllers/ChartController.cpp
+    Sources/Views/mainwindow.ui
+    Sources/Views/MainWindow.cpp
     Sources/Views/ChartBuilder.cpp
     Sources/Views/ChartBuilderDirector.cpp
-    Sources/Controllers/ChartController.cpp
-    Sources/Utils/Utils.cpp
     Sources/Views/NumbersDelegate.cpp
 )
-target_precompile_headers(Diplom PUBLIC Headers/ph/ph.hpp)
+
+add_executable(unit-tests
+    Headers/Tests/testslib.hpp
+    Sources/Tests/testMain.cpp
+    Sources/Model/Matrix.cpp
+    Headers/Model/Matrix.hpp
+)
+
+
+add_executable(Diploma
+    ${HEADERS}
+    ${SOURCES}
+     main.cpp
+)
+
+target_precompile_headers(Diploma PUBLIC Headers/ph/ph.hpp)
+
+set(COMMON_LIBS
+    Qt::Core
+    Qt::Gui
+    Qt::Widgets
+    Qt::Charts
+)
 
 if (UNIX)
-    target_link_libraries(Diplom
-        Qt5::Core
-        Qt5::Gui
-        Qt5::Widgets
-        Qt5::Charts
+    target_link_libraries(Diploma
+        ${COMMON_LIBS}
         pthread
-        )
+    )
+
+    target_link_libraries(unit-tests
+        ${COMMON_LIBS}
+        pthread
+    )
 else()
-    target_link_libraries(Diplom
-            Qt5::Core
-            Qt5::Gui
-            Qt5::Widgets
-            Qt5::Charts
-            )
+    target_link_libraries(Diploma
+        ${COMMON_LIBS}
+    )
+    target_link_libraries(unit-tests
+        ${COMMON_LIBS}
+    )
 endif()

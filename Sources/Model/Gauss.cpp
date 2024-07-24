@@ -71,7 +71,7 @@ Gauss::resolveSystem()
 			{
 				maxAbs = 0.0;
 
-				for ( size_t i = _k; i < MatrixSize; ++i)
+				for ( size_t i = _k; i < MatrixSize; ++i )
 				{
 					maxAbs = std::max( fabs( matrix[i][j]), maxAbs );
 					rowMaxPos = i;
