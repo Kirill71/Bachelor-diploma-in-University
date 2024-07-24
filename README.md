@@ -5,7 +5,7 @@
 You need to install Qt framework to be able to build and run the app.
 The application now runs on Qt6.
 Specify a path to your Qt binaries using `-DCUSTOM_CMAKE_PREFIX_PATH` variable if you use `CMake`.
-If you use `Make` just add the path to your Qt binaries to variable `QT_BINARIES_PATH` in `Makefile` 
+If you use `Make` just add the path to your Qt binaries to the variable `QT_BINARIES_PATH` in `Makefile` 
 and then you will be able to use a simple `Make`-based interface such as:
 ```shell
     make clean
